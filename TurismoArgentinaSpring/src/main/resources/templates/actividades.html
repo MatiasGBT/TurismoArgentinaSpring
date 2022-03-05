@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Actividades | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/actividades.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <header th:replace="layout/plantilla-actividades :: header"></header>
+
+        <main>
+            <h1>Actividades</h1>
+            <div class="gridbox">
+                <div class="flexbox" th:each="actividad : ${actividades}">
+                    <a th:href="${actividad.imagen}" data-fancybox="galeria">
+                        <img th:src="${actividad.imagen}">
+                    </a>
+                    <h3>[[${actividad.nombre}]]</h3>
+                    <p>ARS$[[${actividad.precio}]] por adulto.</p>
+                    <a th:href="@{/carrito/reservar-actividad/}+ ${actividad.idActividad}" class="btn__actividades">
+                        Reservar
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!--FOOTER-->
+        <svg th:replace="layout/plantilla-actividades :: pre-footer"></svg>
+        <footer th:replace="layout/plantilla-actividades :: footer"></footer>
+
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+        <script type="text/javascript" src="/script/myscript.js"></script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="seccion__actividades" th:fragment="seccion-actividades">
+            <h1>Actividades</h1>
+
+            <div class="flexbox">
+                <div class="flexbox__hija" th:each="actividad : ${actividades}">
+                    <img th:src="${actividad.imagen}">
+                    <h3>[[${actividad.nombre}]]</h3>
+                    <p>ARS$[[${actividad.precio}]] por adulto.</p>
+                    <a th:href="@{carrito/reservar-actividad/} + ${actividad.idActividad}" class="btn__actividades">
+                        Reservar
+                    </a>
+                </div>
+            </div>
+            <a th:href="@{/listar-actividades}" id="btn__ver__mas" class="btn__actividades">
+                Ver todas las actividades
+            </a>
+        </section>
+
+    </body>
+</html>

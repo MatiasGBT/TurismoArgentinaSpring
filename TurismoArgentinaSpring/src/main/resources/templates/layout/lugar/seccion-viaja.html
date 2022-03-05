@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="seccion__viaja" th:fragment="seccion-viaja">
+            <h1 id="viaja">¡Reserva tu pasaje a [[${lugar.nombre}]]!</h1>
+            <div class="flexbox">
+                <div class="caja">
+                    <img th:src="@{'/img/personas/' + ${numero} + '.png'}" width="400">
+                </div>
+                <div class="caja">
+                    <h2>Compra el pasaje</h2>
+                    <p>ARS$[[${lugar.precio}]]</p>
+                    <a th:href="@{/carrito/reservar-lugar/}+ ${lugar.idLugar}" class="btn__comprar">
+                        Comprar
+                    </a>
+                    <p style="color: lightgray";>*No incluye estadía.</p>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

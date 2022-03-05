@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Inicio | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/estilos.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.7/glider.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!--MENÚ DE NAVEGACIÓN-->
+        <header th:replace="layout/plantilla :: header"></header>
+
+        <main>
+            <!--PORTADA-->
+            <section th:replace="layout/principal/seccion-portada :: seccion-portada"></section>
+
+            <!--CARRUSEL-->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#3da9fc" fill-opacity="1" d="M0,160L48,181.3C96,203,192,245,288,229.3C384,213,480,139,576,112C672,85,768,107,864,128C960,149,1056,171,1152,176C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" id="turismo"></path>
+            </svg>
+            <section th:replace="layout/principal/seccion-carrusel :: seccion-carrusel"></section>
+
+            <!--ACTIVIDADES-->
+            <section th:replace="layout/principal/seccion-actividades :: seccion-actividades"></section>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="background: white;" id="contacto">
+            <path fill="#3da9fc" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,138.7C384,149,480,139,576,128C672,117,768,107,864,106.7C960,107,1056,117,1152,117.3C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+            
+            <!--CONTACTO-->
+            <section th:replace="layout/principal/seccion-contacto :: seccion-contacto"></section>
+            
+        </main>
+
+        <!--FOOTER-->
+        <svg th:replace="layout/plantilla :: pre-footer"></svg>
+        <footer th:replace="layout/plantilla :: footer"></footer>
+
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.7/glider.min.js"></script>
+        <script type="text/javascript" src="/script/myscript.js"></script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Comprar pasaje | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body>
+    <body id="cuerpo__formulario__actividad" class="cuerpo__formulario">
+        <main>
+            <h1>Comprar pasaje</h1>
+            <div class="caja__comprar">
+                <form th:action="@{/carrito/agregar-lugar/} + ${lugar.idLugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
+                    <div>
+
+                        <label for="cantidad"><i class="fas fa-users"></i> ¿Cuantas personas irán?</label>
+                        <input type="number" name="cantidad" required min="1" max="5">
+
+                        <p>Nota: solo se puede comprar hasta un máximo de 5 pasajes.</p>
+
+                        <input type="submit" value="Comprar">
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+    </body>
+</html>

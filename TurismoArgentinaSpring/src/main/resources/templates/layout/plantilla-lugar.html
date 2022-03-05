@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Plantilla Detalles</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <header th:fragment="header" class="header">
+            <nav class="nav">
+                <a th:href="@{/}" class="logo"><img src="/icons/logoBlanco.svg" alt="Logo del sitio"></a>
+                <button class="nav__toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav__menu">
+                    <li class="nav__menu__item"><a href="#seccion__descripcion" class="nav__menu__link"><i class="fas fa-map-marker-alt"></i> Información</a></li>
+                    <li class="nav__menu__item"><a href="#gal" class="nav__menu__link"><i class="fas fa-images"></i> Galería</a></li>
+                    <li class="nav__menu__item"><a href="#viaja" class="nav__menu__link"><i class="fas fa-plane"></i> ¡Viajá!</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')" class="nav__menu__item">
+                        <a th:href="@{/carrito/}" class="nav__menu__link"><i class="fa-solid fa-shopping-cart"></i> Carrito</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_USER')" class="nav__menu__item">
+                        <a th:href="@{/cuenta}" class="nav__menu__link"><i class="fa-solid fa-user"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        
+    </body>
+</html>

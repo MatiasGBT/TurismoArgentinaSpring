@@ -1,0 +1,556 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#contenido__cuerpo {
+    background: #3da9fc;
+    color: white;
+    font-family: 'Marcellus', serif;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#formulario__sesion {
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+    #formulario__sesion {
+        width: 600px;
+        height: fit-content;
+    }
+}
+
+#formulario__sesion input {
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    border: 2px solid white;
+    border-radius: 25px;
+    background-color: transparent;
+    margin: 10px auto;
+}
+
+#formulario__sesion input:focus:invalid {
+    outline: 2px solid lightcoral;
+}
+
+#formulario__sesion input:focus:valid {
+    outline: 2px solid yellowgreen;
+}
+
+::placeholder {
+    color: white;
+}
+
+#formulario__sesion input[type=submit]{
+    background: white;
+    color: #3da9fc;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 5px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#link__registrarse {
+    color: white;
+}
+
+#link__registrarse:hover {
+    color: lightgray;
+}
+
+@media (min-width: 992px) {
+    .mensaje__error {
+        width: auto;
+    }
+}
+
+/*FORMULARIO PARA COMPRAR/RESERVAR UN/A SITIO/ACTIVIDAD*/
+.caja__comprar {
+    width: 90%
+}
+
+/*  ---  PANEL DE ADMINISTRADOR  ---  */
+#cuerpo__panel {
+    background: white;
+    width: 100%;
+    font-family: 'Marcellus', serif;
+    font-size: 1.25rem;
+}
+
+/*MENU DE NAVEGACION*/
+nav {
+    background: #3da9fc;
+    font-size: 1.5rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 990;
+    display: flex;
+    border-radius: 25px 25px 0 0;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    margin: auto;
+}
+
+nav ul li a {
+    padding: 10px;
+    transition: .3s;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+}
+
+nav ul li a:hover {
+    background: #90b4ce;
+    transition: .3s;
+}
+
+nav ul li a p {
+    display: none;
+}
+
+#logo {
+    display: none;
+}
+
+#contenido__panel {
+    color: black;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+footer {
+    height: 44px; /*Mismo tamaño que el menu de navegación en modo mobile*/
+    margin-top: 75px;
+}
+
+@media (min-width: 992px) {
+    nav {
+        display: block;
+        height: 100vh;
+        width: 20%;
+        padding: 25px;
+        position: fixed;
+        border-radius: 0;
+    }
+
+    nav ul {
+        display: block;
+    }
+
+    nav ul li {
+        margin-top: 10px;
+    }
+    
+    nav ul li a {
+        display: block;
+    }
+
+    nav ul li a p {
+        display: block;
+    }
+
+    #contenido__panel {
+        width: 80%;
+        padding: 25px;
+        margin-left: 20%;
+        text-align: start;
+    }
+
+    #logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    #logo img {
+        width: 100px;
+        position: absolute;
+        top: 80vh;
+    }
+    
+    footer {
+        display: none;
+    }
+}
+
+/*  ---  SECCIONES DEL PANEL  ---  */
+/*  ---  ESTILOS COMUNES DE LAS SECCIONES  ---  */
+.seccion {
+    margin-top: 15px;
+}
+
+/*TABLA*/
+table {
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 25px;
+    color: white;
+}
+
+thead {
+    background: #3da9fc;
+}
+
+tbody {
+    background: #094067;
+}
+
+td {
+    text-align: center;
+    padding: 0;
+    height: 60px;
+}
+
+#tabledata__1 {
+    width: 20%
+}
+
+#tabledata__2 {
+    width: 40%
+}
+
+@media (min-width: 992px) {
+    #tabledata__1, #tabledata__2 {
+        width: 33%;
+    }
+}
+
+.flex {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.btn {
+    text-decoration: none;
+    color: white;
+    display: block;
+    width: 34%;
+    height: 60px;
+    line-height: 60px;
+    margin: auto;
+    transition: .3s;
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    td {
+        height: fit-content;
+    }
+
+    .btn {
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.btn:hover {
+    transition: .3s;
+}
+
+.btn__ver {
+    background: blue;
+}
+
+.btn__editar {
+    background: grey;
+}
+
+.btn__borrar {
+    background: red;
+}
+
+.btn__agregar {
+    background: white;
+    color: green;
+    border: 2px solid green;
+    border-radius: 25px;
+    font-size: 1rem;
+    display: block;
+    width: fit-content;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    transition: .3s;
+    /*Para que se ponga a la izquierda.*/
+    position: absolute;
+    right: 0;
+}
+
+@media (min-width: 992px) {
+    .btn__agregar {
+        right: 25px; /*Mismo tamaño que el padding que tiene el contenedor principal*/
+    }
+}
+
+.btn__ver:hover {
+    background: lightskyblue;
+}
+
+.btn__editar:hover {
+    background: lightgrey;
+}
+
+.btn__borrar:hover {
+    background: lightcoral;
+}
+
+.btn__agregar:hover {
+    background: green;
+    transition: .3s;
+    color: white;
+}
+
+/*FORMULARIO EDITAR*/
+#cuerpo__formulario__actividad {
+    min-height: 100vh;
+}
+
+.cuerpo__formulario {
+    background: #3da9fc;
+    color: white;
+    font-family: 'Marcellus', serif;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.cuerpo__formulario h1 {
+    margin-bottom: 5px;
+}
+
+.cuerpo__formulario div {
+    margin-bottom: 5px;
+}
+
+#cuerpo__formulario__actividad h1 {
+    margin-bottom: 5px;
+}
+
+#cuerpo__formulario__actividad div {
+    margin-bottom: 5px;
+}
+
+#formulario__sesion input,
+#formulario__sesion textarea {
+    display: block;
+    width: 100%;
+    color: white;
+    padding: 8px 16px;
+    border: 2px solid white;
+    border-radius: 25px;
+    background-color: transparent;
+}
+
+#formulario__sesion input:focus:invalid,
+#formulario__sesion textarea:focus:invalid {
+    outline: 2px solid lightcoral;
+}
+
+#formulario__sesion input:focus:valid,
+#formulario__sesion textarea:focus:valid {
+    outline: 2px solid yellowgreen;
+}
+
+.nota__formulario {
+    font-size: .75rem;
+}
+
+/*MODAL*/
+.modal {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all .3s ease; /*ease es para que tenga un efecto suave la transición*/
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+}
+
+.btn__modal:checked ~ .modal {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contenedor__modal {
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    background: white;
+    box-shadow: 1px 7px 25px rgba(0, 0, 0, 0.6);
+    transition: all .3s ease;
+    position: relative; /*Esto es con el fin de poner una posición absoluta al label del header*/
+    transform: translateY(-30%);
+}
+
+.btn__modal:checked ~ .modal .contenedor__modal {
+    transform: translateY(0%);
+}
+
+.contenedor__modal header {
+    padding: 10px;
+    background: #3da9fc;
+    color: white;
+    text-align: start;
+}
+
+.label__header {
+    position: absolute;
+    top: 10px;
+    right: 10px; /*top y right equivalente al padding del header*/
+    color: white;
+    cursor: pointer;
+}
+
+.btn__modal {
+    display: none;
+}
+
+.contenido__modal {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 260px; /*Resultado de la cuenta del heigth del contenedor modal - el del header*/
+}
+
+.btn__interior__modal {
+    display: block;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    text-align: center;
+    width: 100px;
+    transition: .3s;
+    text-decoration: none;
+}
+
+.btn__interior__modal:hover {
+    transition: .3s;
+}
+
+.contenido__modal div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/*  ---  SECCION DE INICIO  ---  */
+#inicio h1 {
+    margin-top: 15px;
+}
+
+#caja__cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor__datos {
+    margin-top: 25px;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    width: 90%;
+}
+
+@media (min-width: 992px) {
+    #inicio h1 {
+        margin-top: 0;
+    }
+
+    #caja__cards {
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: initial;
+    }
+
+    .contenedor__datos {
+        width: 33%;
+    }
+}
+
+.contenedor__datos p {
+    margin-top: 10px;
+}
+
+.aclaracion {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#cantidad__usuarios {
+    background: #90b4ce;
+}
+
+#cantidad__lugares {
+    background: #3da9fc;
+}
+
+#cantidad__actividades {
+    background: #094067;
+}
+
+/*  ---  SECCION SITIOS  ---  */
+
+/*  ---  SECCION ACTIVIDADES  ---  */
+@media (max-width: 992px) {
+    #actividades {
+        margin-top: 65px;
+    }
+    #contacto {
+        margin-top: 65px;
+    }
+}
+
+/*VER ACTIVIDAD*/
+.caja__actividad {
+    border: 2px solid white;
+    border-radius: 25px;
+    max-width: 80%;
+    padding: 10px;
+}
+
+.caja__actividad img {
+    width: 80%;
+}

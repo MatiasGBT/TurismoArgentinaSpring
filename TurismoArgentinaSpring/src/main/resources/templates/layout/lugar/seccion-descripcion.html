@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="seccion__descripcion" th:fragment="seccion-descripcion">
+            <div class="caja">
+                <h2>[[${lugar.nombre}]]</h2>
+                <p>[[${lugar.descripcion}]]</p>
+            </div>
+            <div class="caja">
+                <img th:src="${lugar.portada}" data-fancybox="galeria" class="img__caja">
+            </div>
+        </section>
+    </body>
+</html>

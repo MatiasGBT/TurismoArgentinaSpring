@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="seccion__galeria" th:fragment="seccion-galeria">
+            <h1>Galería</h1>
+            <div id="galeria">
+                <a th:href="${lugar.foto1}" data-fancybox="galeria">
+                    <img th:src="${lugar.foto1}">
+                </a>
+                <a th:href="${lugar.foto2}" data-fancybox="galeria">
+                    <img th:src="${lugar.foto2}">
+                </a>
+                <a th:href="${lugar.foto3}" data-fancybox="galeria">
+                    <img th:src="${lugar.foto3}">
+                </a>
+            </div>
+        </section>
+    </body>
+</html>

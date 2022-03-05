@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Registrarse | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body id="contenido__cuerpo">
+        <main>
+            <h1>Registrarse</h1>
+            <div>
+                <form th:action="@{/verificar}" method="POST" id="formulario__sesion">
+                    <div>
+                        <label for="usuario"><i class="fas fa-user"></i> Nombre de usuario:*</label>
+                        <input type="text" name="usuario" required>
+                        <label for="email"><i class="fas fa-envelope"></i> Email:*</label>
+                        <input type="email" name="email" required>
+                        <label for="password"><i class="fas fa-key"></i> Contraseña:*</label>
+                        <input type="password" name="password" required>
+                        <label for="confpassword"><i class="fas fa-key"></i> Confirmar contraseña:*</label>
+                        <input type="password" name="confpassword" required>
+                        <input type="submit" value="Registrarse">
+                        <p class="mensaje__error">[[${mensaje}]]</p>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+    </body>
+</html>

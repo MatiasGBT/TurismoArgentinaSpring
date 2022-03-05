@@ -1,0 +1,602 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url("../img/fondo.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'Marcellus', serif;
+    font-size: 1.25rem;
+}
+
+main {
+    flex-shrink: 0;
+}
+
+svg {
+    display: flex;
+}
+
+/*  ---  INICIO DE SESIÓN O REGISTRO (INDEX)  ---  */
+#contenedor__index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.centro {
+    width: 50%;
+}
+
+.centro a {
+    text-decoration: none;
+}
+
+#iniciar__sesion {
+    background: transparent;
+    border: 2px white solid;
+    border-radius: 25px;
+    color: white;
+    padding: 10px;
+    transition: .3s;
+    margin-top: 15px;
+    width: 100%;
+    display: block;
+}
+
+#iniciar__sesion:hover {
+    background: white;
+    color: #3da9fc;
+    transition: .3s;
+}
+
+#registrarse {
+    background: white;
+    border: 2px white solid;
+    border-radius: 25px;
+    color: #3da9fc;
+    padding: 10px;
+    transition: .3s;
+    width: 100%;
+    margin-top: 15px;
+    display: block;
+}
+
+#registrarse:hover {
+    background: lightgrey;
+    transition: .3s;
+    border: 2px lightgrey solid;
+}
+
+#flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    #iniciar__sesion {
+        width: 30%;
+        margin-right: 5px;
+    }
+    #registrarse {
+        width: 30%;
+        margin-left: 5px;
+    }
+    #flex {
+        flex-direction: row;
+    }
+}
+
+/*  ---  MENU NAVEGACION  ---  */
+.header {
+    background: #3da9fc;
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    /*Para que en pantallas muy grandes no se aleje mucho el logo del contenido:*/
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.logo {
+    margin: auto 0;
+}
+
+.logo img {
+    width: 65px;
+    height: 65px;
+}
+
+.nav__menu {
+    display: flex;
+    margin-right: 40px;
+    list-style: none;
+}
+
+.nav__menu__item {
+    margin: 0 10px;
+    line-height: 80px;
+    width: max-content; /*Para que no corte el contenido*/
+}
+
+.nav__menu__link {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: .5s;
+}
+
+.nav__menu__link:hover {
+    background: lightblue;
+    transition: .5s;
+}
+
+.nav__toggle {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 30px;
+    padding: 0 20px;
+    line-height: 60px;
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: 60px;
+    }
+
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav__menu {
+        flex-direction: column; /*Para que los links se vean de forma vertical*/
+        background: #90b4ce;
+        position: fixed;
+        left: 0;
+        top: 60px; /*Igual que el alto del navbar*/
+        width: 100%;
+        align-items: center;
+        padding: 20px 0; /*Al detectar una lista, el navegador incluye un padding por defecto a la izquierda, con el 0 se lo quito*/
+        /*Si la pantalla es muy pequeña y hay muchos links en el menú, algunos pueden cortarse y no se veran*/
+        height: calc(100%-60px);
+        overflow-y: auto;
+
+        left: 100%; /*Mando el menú a la derecha cuando no es visible*/
+        transition: left .3s;
+    }
+
+    .nav__toggle {
+        display: block;
+    }
+
+    .nav__menu__visible {
+        left: 0;
+    }
+}
+
+/*  ---  SECCION PORTADA  ---  */
+#secccion__portada {
+    padding: 100px;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.titulo__portada {
+    color: transparent;
+    text-align: center;
+    font-size: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Anton', sans-serif;
+    background-image: url(../img/cielo.jpg);
+    background-size: cover;
+    background-position-y: center;
+    background-clip: text;
+    /*Asegurarse de que funcione en todos los navegadores:*/
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 992px) {
+    .titulo__portada {
+        font-size: 8rem;
+    }
+}
+
+/*  ---  SECCION CAROUSEL  ---  */
+#secccion__carousel {
+    background: #3da9fc;
+}
+
+#secccion__carousel h1 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.caja {
+    width: 85%;
+    margin: 0px auto;
+    z-index: 1;
+}
+
+/*  ---  CAROUSEL  ---  */
+.carousel__contenedor {
+    /*Las flechas tienen que estar a la izquierda y derecha respectivamente
+    así que al carousel hay que darle un posicionamiento relativo para despues
+    ponerle posicionamiento absoluto a las flechas*/
+    position: relative;
+}
+
+.carousel__anterior,
+.carousel__siguiente {
+    position: absolute;
+    display: block; /*Para poder editar ancho y alto*/
+    width: 30px;
+    height: 30px;
+    border: none;
+    /*top y transform para alinear las flechas al medio*/
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    background: none;
+    color: white;
+    opacity: 40%;
+}
+
+.carousel__anterior:hover,
+.carousel__siguiente:hover {
+    opacity: 100%;
+}
+
+/*Sacar los botones a la izquierda y derecha respectivamente, sino, quedan ocultos atrás del carousel*/
+.carousel__anterior {
+    left: -30px;
+}
+
+.carousel__siguiente {
+    right: -30px;
+}
+
+/*Quitar scroll (firefox)*/
+.carousel__lista {
+    overflow: hidden;
+}
+
+.carousel__elemento {
+    text-align: center;
+}
+
+.btn__carousel {
+    display: block;
+    width: 50%;
+    border: 2px solid white;
+    border-radius: 25px;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    background: #3da9fc;
+    padding: 5px;
+    margin: auto;
+    transition: .3s;
+}
+
+.btn__carousel:hover {
+    color: #3da9fc;
+    background: white;
+    transition: .3s;
+}
+
+/*Botones inferiores del glider*/
+.carousel__indicadores .glider-dot {
+    display: block;
+    width: 30px;
+    height: 4px;
+    background: white;
+    opacity: 20%;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.carousel__indicadores .glider-dot:hover {
+    opacity: 50%;
+}
+
+.carousel__indicadores .glider-dot.active {
+    background: white;
+    opacity: 100%;
+}
+
+/*  ---  SECCION ACTIVIDADES  ---  */
+#seccion__actividades {
+    color: #3da9fc;
+    background: white;
+    text-align: center;
+}
+
+.flexbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-direction: column;
+}
+
+.flexbox__hija {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.flexbox__hija img {
+    border-radius: 5px 30px 5px;
+    max-width: 90%;
+    margin-bottom: 10px;
+}
+
+.flexbox__hija p {
+    margin-bottom: 10px;
+}
+
+.btn__actividades {
+    display: block;
+    width: 50%;
+    border: 2px solid #3da9fc;
+    border-radius: 25px;
+    color: #3da9fc;
+    font-size: 1rem;
+    text-decoration: none;
+    background: white;
+    padding: 5px;
+    margin-top: auto;
+    transition: .3s;
+}
+
+.btn__actividades:hover {
+    color: white;
+    background: #3da9fc;
+    transition: .3s;
+}
+
+#btn__ver__mas {
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+@media (min-width: 992px) {
+    .flexbox {
+        flex-direction: row;
+    }
+
+    .flexbox div {
+        margin-bottom: 10px;
+        width: 30%;
+    }
+
+    .flexbox div img {
+        width: 85%;
+    }
+
+    #btn__ver__mas {
+        width: 25%;
+    }
+}
+
+/*  ---  SECCION CONTACTO  ---  */
+#seccion__contacto {
+    color: white;
+    background: #3da9fc;
+    text-align: center;
+}
+
+#seccion__contacto h1 {
+    margin-bottom: 20px;
+}
+
+#formulario__contacto {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 20px;
+    width: 70%;
+}
+
+@media (min-width: 992px) {
+    #formulario__contacto {
+        flex-direction: row;
+        width: 600px;
+    }
+}
+
+#formulario__contacto input,
+#formulario__contacto textarea {
+    display: block;
+    width: 100%;
+    color: white;
+    padding: 8px 16px;
+    border: 2px solid white;
+    border-radius: 25px;
+    background-color: transparent;
+}
+
+#formulario__contacto input:focus:invalid,
+#formulario__contacto textarea:focus:invalid {
+    outline: 2px solid lightcoral;
+}
+
+#formulario__contacto input:focus:valid,
+#formulario__contacto textarea:focus:valid {
+    outline: 2px solid yellowgreen;
+}
+
+::placeholder {
+    color: white;
+}
+
+#seccion__contacto input[type=submit]{
+    background: white;
+    color: #3da9fc;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 5px;
+    width: 30%;
+    margin-top: 10px;
+}
+
+#mensaje__contacto {
+    width: 70%;
+    padding-top: 10px;
+    margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+    #seccion__contacto input[type=submit] {
+        width: 15%;
+    }
+    
+    #mensaje__contacto {
+        width: auto;
+    }
+}
+
+/*  ---  CARRITO DE COMPRAS  ---  */
+#carrito__main {
+    background: white;
+    padding-top: 70px; /*Tamaño del menu de navegación + 10px*/
+    color: black;
+    text-align: center;
+    min-height: 100vh;
+    font-size: 1rem;
+}
+
+#carrito__main section {
+    padding: 15px 0;
+}
+
+.gridbox {
+    display: grid;
+    grid-template-columns: repeat(1, 9fr);
+}
+
+.caja__articulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.caja__articulo img {
+    width: 90%;
+}
+
+.btn__comprar {
+    display: block;
+    width: 50%;
+    border: 2px solid #3da9fc;
+    border-radius: 25px;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    background: #3da9fc;
+    padding: 5px;
+    margin-top: auto;
+}
+
+.btn__carrito {
+    margin: 10px auto;
+}
+
+@media (min-width: 768px) {
+    .gridbox {
+        grid-template-columns: repeat(2, 9fr);
+    }
+    
+    .btn__carrito {
+        width: 35%;
+    }
+}
+
+@media (min-width: 992px) {
+    #carrito__main {
+        padding-top: 90px; /*Tamaño del menu de navegación + 10px*/
+    }
+
+    .gridbox {
+        grid-template-columns: repeat(3, 9fr);
+    }
+
+    .caja__articulo {
+        height: 100%;
+    }
+
+    .btn__carrito {
+        width: 25%;
+    }
+}
+
+/*  ---  FOOTER  ---  */
+footer {
+    background: white;
+    color: #3da9fc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__logout {
+    color: white;
+    background: #3da9fc;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: .5s;
+}
+
+.footer__logout:hover {
+    background: lightblue;
+    transition: .5s;
+}

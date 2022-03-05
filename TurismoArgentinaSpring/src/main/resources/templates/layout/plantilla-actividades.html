@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Plantilla Detalles</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <header th:fragment="header" class="header">
+            <nav class="nav">
+                <a th:href="@{/}" class="logo"><img src="/icons/logoBlanco.svg" alt="Logo del sitio"></a>
+                <button class="nav__toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav__menu">
+                    <li class="nav__menu__item">
+                        <a th:href="@{/}" class="nav__menu__link"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_USER')" class="nav__menu__item">
+                        <a th:href="@{/carrito/}" class="nav__menu__link"><i class="fa-solid fa-shopping-cart"></i> Carrito</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_USER')" class="nav__menu__item">
+                        <a th:href="@{/cuenta}" class="nav__menu__link"><i class="fa-solid fa-user"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        
+        <svg th:fragment="pre-footer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="background: white;">
+        <path fill="#3da9fc" fill-opacity="1" d="M0,256L48,240C96,224,192,192,288,186.7C384,181,480,203,576,224C672,245,768,267,864,277.3C960,288,1056,288,1152,266.7C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+        <footer th:fragment="footer">
+            <div>
+                <a th:href="@{/}" class="logo"><img src="/icons/logoBlanco.svg" alt="Logo del sitio"/></a>
+                <p>&copy; Turismo Argentina</p>
+            </div>
+
+            <form method="POST" th:action="@{/logout}">
+                <a href="#" onclick="this.parentNode.submit();" class="footer__logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </a>
+            </form>
+        </footer>
+
+    </body>
+</html>
