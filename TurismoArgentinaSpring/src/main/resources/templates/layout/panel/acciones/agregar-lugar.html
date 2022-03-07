@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Agregar lugar | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body id="cuerpo__formulario__lugar" class="cuerpo__formulario">
+        <h1>Agregar lugar</h1>
+        <div>
+            <form th:action="@{/insertar-lugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
+                <div>
+                    <label for="nombre"><i class="fa-solid fa-map-marked-alt"></i> Nombre:</label>
+                    <input type="text" name="nombre" required id="nombre">
+                    
+                    <label for="descripcion"><i class="fa-solid fa-align-justify"></i> Descripción:</label>
+                    <br>
+                    <textarea name="descripcion" cols="30" rows="10" maxlength="600" placeholder="Máximo 600 caracteres."
+                              required id="descripcion"></textarea>
+                    <br>
+                    
+                    <label for="portada"><i class="fa-solid fa-image"></i> Imagen de portada:</label>
+                    <input type="file" name="portada" required accept="image/jpeg" id="portada">
+                    
+                    <label for="foto1"><i class="fa-solid fa-image"></i> Imagen n1:</label>
+                    <input type="file" name="foto1" required accept="image/jpeg" id="foto1">
+                    
+                    <label for="foto2"><i class="fa-solid fa-image"></i> Imagen n2:</label>
+                    <input type="file" name="foto2" required accept="image/jpeg" id="foto2">
+                    
+                    <label for="foto3"><i class="fa-solid fa-image"></i> Imagen n3:</label>
+                    <input type="file" name="foto3" required accept="image/jpeg" id="foto3">
+                    
+                    <label for="precio"><i class="fa-solid fa-dollar-sign"></i> Precio:</label>
+                    <input type="number" name="precio" required id="precio">
+                    
+                    <p class="nota__formulario">Nota: Las imagenes deben tener unas dimensiones de 550x310px.</p>
+                    
+                    <input type="submit" value="Agregar lugar">
+                </div>
+            </form>
+        </div>
+                
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>[[${actividad.nombre}]] | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body id="cuerpo__formulario__actividad" class="cuerpo__formulario">
+        <h1>[[${actividad.nombre}]]</h1>
+        <br>
+        <div class="caja__actividad">
+            <p>Id de la actividad: [[${actividad.idActividad}]]</p>
+            <br>
+            <p>Nombre de la actividad: [[${actividad.nombre}]]</p>
+            <br>
+            <p>Imagen:</p>
+            <img th:src="${actividad.imagen}">
+            <br>
+            <p>Precio: [[${actividad.precio}]]</p>
+        </div>
+
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+    </body>
+</html>

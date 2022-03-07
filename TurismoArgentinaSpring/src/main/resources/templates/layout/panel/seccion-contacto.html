@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="contacto" class="seccion" th:fragment="seccion-contacto">
+            <h1>Contacto</h1>
+            <p>Revisar los comentarios que dejan los visitantes de la página.</p>
+
+            <table>
+                <thead>
+                <th>#</th>
+                <th>Nombre</th>
+                <th></th>
+                </thead>
+                <tbody>
+                    <tr th:each="contacto : ${contactos}">
+                        <td id="tabledata__1">[[${contacto.idContacto}]]</td>
+                        <td id="tabledata__2">[[${contacto.nombre}]]</td>
+                        <td id="tabledata__3" class="flex">
+                            <a th:href="@{/panel/mostrar-contacto/} + ${contacto.idContacto}"
+                               class="btn btn__ver">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a th:href="'mailto: ' + ${contacto.email} + '?Subject=Respuesta%20a%20comentario%20Turismo%20Argentina'" target="_blank"
+                               class="btn btn__editar">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+
+                            <a th:href="@{/panel/borrar-contacto/} + ${contacto.idContacto}"
+                               class="btn btn__borrar">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
+</html>
+

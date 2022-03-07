@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <header th:fragment="header">
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-home"></i><p>Inicio</p></a></li>
+                    <li><a href="#sitios"><i class="fa-solid fa-suitcase-rolling"></i><p>Sitios</p></a></li>
+                    <li><a href="#actividades"><i class="fa-solid fa-snowboarding"></i><p>Actividades</p></a></li>
+                    <li><a href="#contacto"><i class="fa-solid fa-comments"></i><p>Contacto</p></a></li>
+                    <li><a href="#auditoria"><i class="fa-solid fa-book"></i><p>Auditoría</p></a></li>
+                </ul>
+                <a th:href="@{/}" id="logo"><img src="/icons/logoBlanco.svg" alt="Ir a la página principal"></a>
+            </nav>
+        </header>
+
+    </body>
+</html>

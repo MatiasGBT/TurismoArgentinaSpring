@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="auditoria" class="seccion" th:fragment="seccion-auditoria">
+            <h1>Registro de auditoría</h1>
+            <p>Cambios realizados por el Administrador en el último mes.</p>
+
+            <table th:if="${totalAuditorias}!=0">
+                <thead>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Acción</th>
+                <th>Fecha</th>
+                </thead>
+                <tbody>
+                    <tr th:each="auditoria : ${auditorias}">
+                        <td>[[${auditoria.idAuditoria}]]</td>
+                        <td>[[${auditoria.usuario}]]</td>
+                        <td>[[${auditoria.accion}]]</td>
+                        <td>[[${auditoria.fecha}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p th:if="${totalAuditorias}==0">El administrador no ha realizado cambios este mes.</p>
+        </section>
+    </body>
+</html>
+

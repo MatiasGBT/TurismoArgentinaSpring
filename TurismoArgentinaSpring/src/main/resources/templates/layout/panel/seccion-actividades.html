@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Turismo Argentina</title>
+    </head>
+    <body>
+        <section id="actividades" class="seccion" th:fragment="seccion-actividades">
+            <h1>Actividades turísticas</h1>
+            <p>Agregar, editar o eliminar actividades turísticas de la página principal.</p>
+
+            <table>
+                <thead>
+                <th>#</th>
+                <th>Nombre</th>
+                <th></th>
+                </thead>
+                <tbody>
+                    <tr th:each="actividad : ${actividades}">
+                        <td id="tabledata__1">[[${actividad.idActividad}]]</td>
+                        <td id="tabledata__2">[[${actividad.nombre}]]</td>
+                        <td id="tabledata__3" class="flex">
+                            <a th:href="@{/panel/mostrar-actividad/} + ${actividad.idActividad}"
+                               class="btn btn__ver">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a th:href="@{/panel/editar-actividad/} + ${actividad.idActividad}"
+                               class="btn btn__editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <a th:href="@{/panel/borrar-actividad/} + ${actividad.idActividad}"
+                               class="btn btn__borrar">
+                                <i class="fas fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/panel/agregar-actividad}" class="btn__agregar">
+                Agregar actividad turística
+            </a>
+        </section>
+    </body>
+</html>
+

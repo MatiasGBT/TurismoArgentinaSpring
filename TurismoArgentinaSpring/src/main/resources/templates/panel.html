@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Panel | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body id="cuerpo__panel">
+        
+        <header th:replace="layout/plantilla-panel :: header"></header>
+        
+        <main id="contenido__panel">
+            <!--INICIO-->
+            <section th:replace="layout/panel/seccion-inicio :: seccion-inicio"></section>
+            
+            <!--LUGARES/SITIOS-->
+            <section th:replace="layout/panel/seccion-lugares :: seccion-lugares"></section>
+            
+            <!--ACTIVIDADES-->
+            <section th:replace="layout/panel/seccion-actividades :: seccion-actividades"></section>
+            
+            <!--CONTACTO-->
+            <section th:replace="layout/panel/seccion-contacto :: seccion-contacto"></section>
+            
+            <!--AUDITORÍAS-->
+            <section th:replace="layout/panel/seccion-auditoria :: seccion-auditoria"></section>
+        </main>
+        
+        <footer></footer> <!--Este footer solo esta para que el menu del panel en modo mobile no tape contenido-->
+        
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+    </body>
+</html>
