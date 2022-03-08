@@ -1,19 +1,19 @@
 package com.mgbt.service;
 
 import com.mgbt.dao.IContactoDao;
-import com.mgbt.domain.Contacto;
+import com.mgbt.domain.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ContactoServiceImpl implements IContactoService {
+public class ContactoServiceImpl implements IService<Contacto> {
 
     @Autowired
     IContactoDao contactoDao;
     
     @Override
-    public List<Contacto> listarContactos() {
+    public List<Contacto> listar() {
         return contactoDao.findAll();
     }
 
@@ -28,13 +28,11 @@ public class ContactoServiceImpl implements IContactoService {
     }
 
     @Override
-    public Contacto encontrarContacto(Contacto contacto) {
+    public Contacto encontrar(Contacto contacto) {
         return contactoDao.findById(contacto.getIdContacto()).orElse(null);
     }
 
-    @Override
     public Contacto encontrarContactoPorEmail(Contacto contacto) {
         return contactoDao.findByEmail(contacto.getEmail());
     }
-    
 }

@@ -1,19 +1,19 @@
 package com.mgbt.service;
 
 import com.mgbt.dao.ILugarDao;
-import com.mgbt.domain.Lugar;
+import com.mgbt.domain.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LugarServiceImpl implements ILugarService {
+public class LugarServiceImpl implements IService<Lugar> {
 
     @Autowired
     private ILugarDao lugarDao;
     
     @Override
-    public List<Lugar> listarLugares() {
+    public List<Lugar> listar() {
         return lugarDao.findAll();
     }
 
@@ -28,8 +28,7 @@ public class LugarServiceImpl implements ILugarService {
     }
 
     @Override
-    public Lugar encontrarLugar(Lugar lugar) {
+    public Lugar encontrar(Lugar lugar) {
         return lugarDao.findById(lugar.getIdLugar()).orElse(null);
     }
-    
 }

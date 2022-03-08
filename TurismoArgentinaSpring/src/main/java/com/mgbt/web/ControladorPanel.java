@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.*;
 public class ControladorPanel {
 
     @Autowired
-    IUsuarioService usuarioService;
+    UsuarioServiceImpl usuarioService;
 
     @Autowired
-    ILugarService lugarService;
+    LugarServiceImpl lugarService;
 
     @Autowired
-    IActividadService actividadService;
+    ActividadServiceImpl actividadService;
 
     @Autowired
-    IAuditoriaService auditoriaService;
+    AuditoriaServiceImpl auditoriaService;
 
     @Autowired
-    IContactoService contactoService;
+    ContactoServiceImpl contactoService;
 
     @GetMapping("/")
     public String inicio(Model model) {
         //CARDS
-        model.addAttribute("totalUsuarios", usuarioService.listarUsuarios().size());
+        model.addAttribute("totalUsuarios", usuarioService.listar().size());
 
         //COMPRAS (AUDITORÍAS INICIO)
         List<Auditoria> compras = auditoriaService.encontrarPorTipo(2);
@@ -42,17 +42,17 @@ public class ControladorPanel {
         model.addAttribute("totalCompras", compras.size());
 
         //LUGARES
-        List<Lugar> lugares = lugarService.listarLugares();
+        List<Lugar> lugares = lugarService.listar();
         model.addAttribute("lugares", lugares);
         model.addAttribute("totalLugares", lugares.size());
 
         //ACTIVIDADES
-        List<Actividad> actividades = actividadService.listarActividades();
+        List<Actividad> actividades = actividadService.listar();
         model.addAttribute("actividades", actividades);
         model.addAttribute("totalActividades", actividades.size());
 
         //CONTACTO
-        List<Contacto> contactos = contactoService.listarContactos();
+        List<Contacto> contactos = contactoService.listar();
         model.addAttribute("contactos", contactos);
 
         //AUDITORÍA
@@ -67,14 +67,14 @@ public class ControladorPanel {
     //LUGARES
     @GetMapping("/editar-lugar/{idLugar}")
     public String editarLugar(Lugar lugar, Model model) {
-        lugar = lugarService.encontrarLugar(lugar);
+        lugar = lugarService.encontrar(lugar);
         model.addAttribute("lugar", lugar);
         return "layout/panel/acciones/editar-lugar";
     }
 
     @GetMapping("/borrar-lugar/{idLugar}")
     public String borrarLugar(Lugar lugar, Authentication auth) {
-        lugar = lugarService.encontrarLugar(lugar);
+        lugar = lugarService.encontrar(lugar);
         realizarAuditoría("Eliminar lugar", lugar.getNombre(), auth);
         lugarService.eliminar(lugar);
         return "redirect:/panel/";
@@ -88,21 +88,21 @@ public class ControladorPanel {
     //ACTIVIDADES
     @GetMapping("/mostrar-actividad/{idActividad}")
     public String mostrarActividad(Actividad actividad, Model model) {
-        actividad = actividadService.encontrarActividad(actividad);
+        actividad = actividadService.encontrar(actividad);
         model.addAttribute("actividad", actividad);
         return "layout/panel/acciones/mostrar-actividad";
     }
 
     @GetMapping("/editar-actividad/{idActividad}")
     public String editarActividad(Actividad actividad, Model model) {
-        actividad = actividadService.encontrarActividad(actividad);
+        actividad = actividadService.encontrar(actividad);
         model.addAttribute("actividad", actividad);
         return "layout/panel/acciones/editar-actividad";
     }
 
     @GetMapping("/borrar-actividad/{idActividad}")
     public String borrarActividad(Actividad actividad, Authentication auth) {
-        actividad = actividadService.encontrarActividad(actividad);
+        actividad = actividadService.encontrar(actividad);
         realizarAuditoría("Eliminar actividad", actividad.getNombre(), auth);
         actividadService.eliminar(actividad);
         return "redirect:/panel/";
@@ -116,14 +116,14 @@ public class ControladorPanel {
     //CONTACTOS
     @GetMapping("/mostrar-contacto/{idContacto}")
     public String mostrarContacto(Contacto contacto, Model model) {
-        contacto = contactoService.encontrarContacto(contacto);
+        contacto = contactoService.encontrar(contacto);
         model.addAttribute("contacto", contacto);
         return "layout/panel/acciones/mostrar-contacto";
     }
 
     @GetMapping("/borrar-contacto/{idContacto}")
     public String borrarContacto(Contacto contacto, Authentication auth) {
-        contacto = contactoService.encontrarContacto(contacto);
+        contacto = contactoService.encontrar(contacto);
         realizarAuditoría("Eliminar contacto", contacto.getNombre(), auth);
         contactoService.eliminar(contacto);
         return "redirect:/panel/";

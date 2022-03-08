@@ -10,20 +10,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("carrito/")
 public class ControladorCarrito {
 
     @Autowired
-    private ILugarService lugarService;
+    private LugarServiceImpl lugarService;
 
     @Autowired
-    private IActividadService actividadService;
+    private ActividadServiceImpl actividadService;
 
     @Autowired
-    private IAuditoriaService auditoriaService;
+    private AuditoriaServiceImpl auditoriaService;
 
     List<Lugar> lugares = new ArrayList<>();
     List<Actividad> actividades = new ArrayList<>();
@@ -78,7 +77,7 @@ public class ControladorCarrito {
 
     @PostMapping("/agregar-lugar/{idLugar}")
     public String enviarFormularioLugar(Lugar lugar, int cantidad, Model model) {
-        lugar = lugarService.encontrarLugar(lugar);
+        lugar = lugarService.encontrar(lugar);
         lugar.setPrecio(lugar.getPrecio() * cantidad);
         String mensaje = "";
 
@@ -103,7 +102,7 @@ public class ControladorCarrito {
 
     @PostMapping("/agregar-actividad/{idActividad}")
     public String enviarFormularioActividad(Actividad actividad, int cantidad, Model model) {
-        actividad = actividadService.encontrarActividad(actividad);
+        actividad = actividadService.encontrar(actividad);
         actividad.setPrecio(actividad.getPrecio() * cantidad);
         String mensaje = "";
 

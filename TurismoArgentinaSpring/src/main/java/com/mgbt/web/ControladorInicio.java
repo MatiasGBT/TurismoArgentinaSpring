@@ -13,19 +13,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ControladorInicio {
 
     @Autowired
-    private ILugarService lugarService;
+    private LugarServiceImpl lugarService;
 
     @Autowired
-    private IActividadService actividadService;
+    private ActividadServiceImpl actividadService;
 
     @Autowired
-    private IContactoService contactoService;
+    private ContactoServiceImpl contactoService;
 
     @Autowired
-    private IUsuarioService usuarioService;
+    private UsuarioServiceImpl usuarioService;
 
     @Autowired
-    private IRolService rolService;
+    private RolServiceImpl rolService;
 
     @GetMapping("/registrarse")
     public String registrarse(Model model, @RequestParam(value = "mensaje", required = false) String mensaje) {
@@ -43,7 +43,7 @@ public class ControladorInicio {
 
             Rol rol = new Rol();
             rol.setNombre("ROLE_USER");
-            rol = rolService.encontrarRol(rol);
+            rol = rolService.encontrar(rol);
 
             usuarioService.guardar(new Usuario(usuario, email, password, rol));
             return "redirect:/login";
@@ -56,7 +56,7 @@ public class ControladorInicio {
 
     @GetMapping("/")
     public String inicio(Model model, @RequestParam(value = "mensaje", required = false) String mensaje) {
-        var lugares = lugarService.listarLugares();
+        var lugares = lugarService.listar();
         var actividades = actividadService.listarAleatorios();
         model.addAttribute("lugares", lugares);
         model.addAttribute("actividades", actividades);
@@ -66,7 +66,7 @@ public class ControladorInicio {
 
     @GetMapping("/mostrar-lugar/{idLugar}")
     public String detalles(Model model, Lugar lugar) {
-        lugar = lugarService.encontrarLugar(lugar);
+        lugar = lugarService.encontrar(lugar);
         int numero = (int) (Math.random() * 4 + 1);
         model.addAttribute("lugar", lugar);
         model.addAttribute("numero", numero);
@@ -75,7 +75,7 @@ public class ControladorInicio {
 
     @GetMapping("/listar-actividades")
     public String verActividades(Model model) {
-        var actividades = actividadService.listarActividades();
+        var actividades = actividadService.listar();
         model.addAttribute("actividades", actividades);
         return "actividades";
     }

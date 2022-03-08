@@ -1,19 +1,19 @@
 package com.mgbt.service;
 
 import com.mgbt.dao.IAuditoriaDao;
-import com.mgbt.domain.Auditoria;
+import com.mgbt.domain.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuditoriaServiceImpl implements IAuditoriaService {
+public class AuditoriaServiceImpl implements IService<Auditoria> {
 
     @Autowired
     IAuditoriaDao auditoriaDao;
     
     @Override
-    public List<Auditoria> listarAuditorias() {
+    public List<Auditoria> listar() {
         return auditoriaDao.findAll();
     }
 
@@ -28,11 +28,10 @@ public class AuditoriaServiceImpl implements IAuditoriaService {
     }
 
     @Override
-    public Auditoria encontrarAuditoria(Auditoria auditoria) {
+    public Auditoria encontrar(Auditoria auditoria) {
         return auditoriaDao.findById(auditoria.getIdAuditoria()).orElse(null);
     }
 
-    @Override
     public List<Auditoria> encontrarPorTipo(int tipo) {
         return auditoriaDao.findByTipo(tipo);
     }

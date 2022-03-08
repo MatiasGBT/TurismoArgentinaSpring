@@ -1,8 +1,7 @@
 package com.mgbt.service;
 
 import com.mgbt.dao.IUsuarioDao;
-import com.mgbt.domain.Rol;
-import com.mgbt.domain.Usuario;
+import com.mgbt.domain.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("userDetailsService")
-public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
+public class UsuarioServiceImpl implements UserDetailsService, IService<Usuario> {
 
     @Autowired
     private IUsuarioDao usuarioDao;
@@ -38,7 +37,7 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 
     //INTERFACE IUSUARIOSERVICE
     @Override
-    public List<Usuario> listarUsuarios() {
+    public List<Usuario> listar() {
         return usuarioDao.findAll();
     }
 
@@ -53,8 +52,7 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     }
 
     @Override
-    public Usuario encontrarUsuario(Usuario usuario) {
+    public Usuario encontrar(Usuario usuario) {
         return usuarioDao.findById(usuario.getIdUsuario()).orElse(null);
     }
-
 }
