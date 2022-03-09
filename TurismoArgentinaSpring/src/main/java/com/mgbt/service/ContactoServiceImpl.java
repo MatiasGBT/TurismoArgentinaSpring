@@ -1,7 +1,7 @@
 package com.mgbt.service;
 
 import com.mgbt.dao.IContactoDao;
-import com.mgbt.domain.*;
+import com.mgbt.domain.Contacto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

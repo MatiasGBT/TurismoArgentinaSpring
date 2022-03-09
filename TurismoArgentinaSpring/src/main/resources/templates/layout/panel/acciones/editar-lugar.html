@@ -13,27 +13,27 @@
     <body id="cuerpo__formulario__lugar" class="cuerpo__formulario">
         <h1>Editar lugar</h1>
         <div>
-            <form th:action="@{/modificar-lugar/} + ${lugar.idLugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
+            <form th:action="@{/panel/modificar-lugar/} + ${lugar.idLugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
                 <div>
                     <label for="nombre"><i class="fa-solid fa-map-marked-alt"></i> Nombre:</label>
                     <input type="text" name="nombre" required th:value="${lugar.nombre}">
                     
                     <label for="descripcion"><i class="fa-solid fa-align-justify"></i> Descripción:</label>
                     <br>
-                    <textarea name="descripcion" cols="30" rows="10" maxlength="600" placeholder="Máximo 600 caracteres." required></textarea>
+                    <textarea name="descripcion" cols="30" rows="10" maxlength="600" placeholder="Deja vacío este campo si no queres editarlo. Máximo 600 caracteres."></textarea>
                     <br>
                     
                     <label for="portada"><i class="fa-solid fa-image"></i> Imagen de portada:</label>
-                    <input type="file" name="portada" required accept="image/jpeg">
+                    <input type="file" name="imagenPortada" accept="image/jpeg">
                     
                     <label for="foto1"><i class="fa-solid fa-image"></i> Imagen n1:</label>
-                    <input type="file" name="foto1" required accept="image/jpeg">
+                    <input type="file" name="imagenFoto1" accept="image/jpeg">
                     
                     <label for="foto2"><i class="fa-solid fa-image"></i> Imagen n2:</label>
-                    <input type="file" name="foto2" required accept="image/jpeg">
+                    <input type="file" name="imagenFoto2" accept="image/jpeg">
                     
                     <label for="foto3"><i class="fa-solid fa-image"></i> Imagen n3:</label>
-                    <input type="file" name="foto3" required accept="image/jpeg">
+                    <input type="file" name="imagenFoto3" accept="image/jpeg">
                     
                     <label for="precio"><i class="fa-solid fa-dollar-sign"></i> Precio:</label>
                     <input type="number" name="precio" required th:value="${lugar.precio}">

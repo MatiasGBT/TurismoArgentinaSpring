@@ -13,13 +13,13 @@
     <body id="cuerpo__formulario__actividad" class="cuerpo__formulario">
         <h1>Editar Actividad</h1>
         <div>
-            <form th:action="@{/modificar-actividad/} + ${actividad.idActividad}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
+            <form th:action="@{/panel/modificar-actividad/} + ${actividad.idActividad}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
                 <div>
                     <label for="nombre"><i class="fas fa-map-marked-alt"></i> Nombre:</label>
                     <input type="text" name="nombre" required th:value="${actividad.nombre}" id="nombre">
 
                     <label for="portada"><i class="fas fa-image"></i> Imagen:</label>
-                    <input type="file" name="imagen" required accept="image/jpeg" id="portada">
+                    <input type="file" name="fotoImagen" required accept="image/jpeg" id="portada">
 
                     <label for="precio"><i class="fas fa-dollar-sign"></i> Precio:</label>
                     <input type="number" name="precio" required th:value="${actividad.precio}" id="precio">
