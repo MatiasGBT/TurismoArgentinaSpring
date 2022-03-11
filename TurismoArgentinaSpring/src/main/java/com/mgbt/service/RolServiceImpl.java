@@ -5,6 +5,7 @@ import com.mgbt.domain.Rol;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RolServiceImpl implements IService<Rol> {
@@ -13,6 +14,7 @@ public class RolServiceImpl implements IService<Rol> {
     private IRolDao rolDao;
     
     @Override
+    @Transactional(readOnly = true)
     public Rol encontrar(Rol rol) {
         return rolDao.findByNombre(rol.getNombre());
     }

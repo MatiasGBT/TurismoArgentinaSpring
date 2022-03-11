@@ -48,8 +48,7 @@ public class ControladorInicio {
             usuarioService.guardar(new Usuario(usuario, email, password, rol));
             return "redirect:/login";
         } else {
-            String mensaje = "Las contraseñas no coinciden";
-            redirectAttributes.addAttribute("mensaje", mensaje);
+            redirectAttributes.addAttribute("mensaje", "Las contraseñas no coinciden");
             return "redirect:/registrarse";
         }
     }

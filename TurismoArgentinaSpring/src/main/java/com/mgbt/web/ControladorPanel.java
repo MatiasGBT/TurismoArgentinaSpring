@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("panel/")
@@ -72,6 +73,61 @@ public class ControladorPanel {
     }
 
     //  ---  LUGARES  ---
+    @GetMapping("/agregar-lugar")
+    public String agregarLugar(@RequestParam(value = "mensajeErrorLugar", required = false) String mensaje, Model model) {
+        model.addAttribute("mensajeErrorLugar", mensaje);
+        return "layout/panel/acciones/agregar-lugar";
+    }
+
+    @PostMapping("/insertar-lugar")
+    public String insertarLugar(String nombre, String descripcion,
+            @RequestParam("portada") MultipartFile portada, @RequestParam("foto1") MultipartFile foto1,
+            @RequestParam("foto2") MultipartFile foto2, @RequestParam("foto3") MultipartFile foto3,
+            double precio, RedirectAttributes redirectAttributes, Authentication auth) throws IOException {
+
+        Lugar lugar = new Lugar();
+        lugar.setNombre(nombre);
+        lugar.setDescripcion(descripcion);
+        lugar.setPrecio(precio);
+
+        String mensaje;
+        mensaje = guardarImagen(portada, nombre, "lugares", "portada");
+        if (mensaje.contains("Error")) {
+            redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
+            return "redirect:/panel/agregar-lugar";
+        } else {
+            lugar.setPortada(mensaje);
+        }
+
+        mensaje = guardarImagen(foto1, nombre, "lugares", "foto1");
+        if (mensaje.contains("Error")) {
+            redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
+            return "redirect:/panel/agregar-lugar";
+        } else {
+            lugar.setFoto1(mensaje);
+        }
+
+        mensaje = guardarImagen(foto2, nombre, "lugares", "foto2");
+        if (mensaje.contains("Error")) {
+            redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
+            return "redirect:/panel/agregar-lugar";
+        } else {
+            lugar.setFoto2(mensaje);
+        }
+
+        mensaje = guardarImagen(foto3, nombre, "lugares", "foto3");
+        if (mensaje.contains("Error")) {
+            redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
+            return "redirect:/panel/agregar-lugar";
+        } else {
+            lugar.setFoto3(mensaje);
+        }
+
+        lugarService.guardar(lugar);
+        realizarAuditoría("Agregar lugar", lugar.getNombre(), auth);
+        return "redirect:/panel/";
+    }
+    
     @GetMapping("/editar-lugar/{idLugar}")
     public String editarLugar(Lugar lugar, Model model) {
         lugar = lugarService.encontrar(lugar);
@@ -85,7 +141,7 @@ public class ControladorPanel {
             @RequestParam(name = "imagenFoto1", required = false) MultipartFile foto1,
             @RequestParam(name = "imagenFoto2", required = false) MultipartFile foto2,
             @RequestParam(name = "imagenFoto3", required = false) MultipartFile foto3,
-            double precio, Model model, Authentication auth) throws IOException {
+            double precio, Authentication auth) throws IOException {
 
         lugar = lugarService.encontrar(lugar);
         lugar.setNombre(nombre);
@@ -96,19 +152,19 @@ public class ControladorPanel {
             lugar.setDescripcion(descripcion);
         }
 
-        if (!portada.isEmpty()) {
+        if (!portada.isEmpty() && portada.getSize() <= 5000000) {
             eliminarArchivo(lugar.getPortada());
             lugar.setPortada(guardarImagen(portada, nombre, "lugares", "portada"));
         }
-        if (!foto1.isEmpty()) {
+        if (!foto1.isEmpty() && foto1.getSize() <= 5000000) {
             eliminarArchivo(lugar.getFoto1());
             lugar.setFoto1(guardarImagen(foto1, nombre, "lugares", "foto1"));
         }
-        if (!foto2.isEmpty()) {
+        if (!foto2.isEmpty() && foto2.getSize() <= 5000000) {
             eliminarArchivo(lugar.getFoto2());
             lugar.setFoto2(guardarImagen(foto2, nombre, "lugares", "foto2"));
         }
-        if (!foto3.isEmpty()) {
+        if (!foto3.isEmpty() && foto3.getSize() <= 5000000) {
             eliminarArchivo(lugar.getFoto3());
             lugar.setFoto3(guardarImagen(foto3, nombre, "lugares", "foto3"));
         }
@@ -121,42 +177,17 @@ public class ControladorPanel {
     @GetMapping("/borrar-lugar/{idLugar}")
     public String borrarLugar(Lugar lugar, Authentication auth) {
         lugar = lugarService.encontrar(lugar);
-        realizarAuditoría("Eliminar lugar", lugar.getNombre(), auth);
         lugarService.eliminar(lugar);
         eliminarArchivo(lugar.getPortada());
         eliminarArchivo(lugar.getFoto1());
         eliminarArchivo(lugar.getFoto2());
         eliminarArchivo(lugar.getFoto3());
+        realizarAuditoría("Eliminar lugar", lugar.getNombre(), auth);
         return "redirect:/panel/";
     }
-
-    @GetMapping("/agregar-lugar")
-    public String agregarLugar() {
-        return "layout/panel/acciones/agregar-lugar";
-    }
-
-    @PostMapping("/insertar-lugar")
-    public String insertarLugar(String nombre, String descripcion,
-            @RequestParam("portada") MultipartFile portada, @RequestParam("foto1") MultipartFile foto1,
-            @RequestParam("foto2") MultipartFile foto2, @RequestParam("foto3") MultipartFile foto3,
-            double precio, Model model, Authentication auth) throws IOException {
-
-        //Se agrega el lugar a la BD
-        Lugar lugar = new Lugar();
-        lugar.setNombre(nombre);
-        lugar.setDescripcion(descripcion);
-        //Se guardan las imagenes en el proyecto y retorna los nombres de las rutas a almacenar en la BD
-        lugar.setPortada(guardarImagen(portada, nombre, "lugares", "portada"));
-        lugar.setFoto1(guardarImagen(foto1, nombre, "lugares", "foto1"));
-        lugar.setFoto2(guardarImagen(foto2, nombre, "lugares", "foto2"));
-        lugar.setFoto3(guardarImagen(foto3, nombre, "lugares", "foto3"));
-        lugar.setPrecio(precio);
-        lugarService.guardar(lugar);
-
-        realizarAuditoría("Agregar lugar", lugar.getNombre(), auth);
-        return "redirect:/panel/";
-    }
-
+    
+    
+    
     //  ---  ACTIVIDADES  ---
     @GetMapping("/mostrar-actividad/{idActividad}")
     public String mostrarActividad(Actividad actividad, Model model) {
@@ -165,32 +196,62 @@ public class ControladorPanel {
         return "layout/panel/acciones/mostrar-actividad";
     }
 
+    @GetMapping("/agregar-actividad")
+    public String agregarActividad(@RequestParam(value = "mensajeErrorActividad", required = false) String mensaje, Model model) {
+        model.addAttribute("mensajeErrorActividad", mensaje);
+        return "layout/panel/acciones/agregar-actividad";
+    }
+
+    @PostMapping("/insertar-actividad")
+    public String insertarActividad(String nombre,
+            @RequestParam("imagen") MultipartFile imagen, double precio,
+            RedirectAttributes redirectAttributes, Authentication auth) throws IOException {
+
+        Actividad actividad = new Actividad();
+        String mensaje = guardarImagen(imagen, nombre, "actividades", "imagen");
+        if (!mensaje.contains("Error")) {
+            actividad.setImagen(mensaje);
+            actividad.setNombre(nombre);
+            actividad.setPrecio(precio);
+            actividadService.guardar(actividad);
+            realizarAuditoría("Agregar actividad", actividad.getNombre(), auth);
+            return "redirect:/panel/";
+        } else {
+            redirectAttributes.addAttribute("mensajeErrorActividad", mensaje);
+            return "redirect:/panel/agregar-actividad";
+        }
+    }
+    
     @GetMapping("/editar-actividad/{idActividad}")
-    public String editarActividad(Actividad actividad, Model model) {
+    public String editarActividad(Actividad actividad, @RequestParam(value = "mensajeErrorActividad", required = false) String mensaje,
+            Model model) {
         actividad = actividadService.encontrar(actividad);
         model.addAttribute("actividad", actividad);
+        model.addAttribute("mensajeErrorActividad", mensaje);
         return "layout/panel/acciones/editar-actividad";
     }
 
     @PostMapping("/modificar-actividad/{idActividad}")
     public String modificarActividad(Actividad actividad, String nombre,
             @RequestParam(name = "fotoImagen", required = false) MultipartFile imagen,
-            double precio, Model model, Authentication auth) throws IOException {
+            double precio, RedirectAttributes redirectAttributes, Authentication auth) throws IOException {
 
         actividad = actividadService.encontrar(actividad);
         actividad.setNombre(nombre);
         actividad.setPrecio(precio);
 
-        if (!imagen.isEmpty()) {
+        if (!imagen.isEmpty() && imagen.getSize() <= 5000000) {
             eliminarArchivo(actividad.getImagen());
             actividad.setImagen(guardarImagen(imagen, nombre, "actividades", "imagen"));
+            actividadService.guardar(actividad);
+            realizarAuditoría("Editar actividad", actividad.getNombre(), auth);
+            return "redirect:/panel/";
+        } else {
+            redirectAttributes.addAttribute("mensajeErrorActividad", "La imagen esta vacía o pesa más de 5MB.");
+            return "redirect:/panel/editar-actividad/" + actividad.getIdActividad();
         }
-        actividadService.guardar(actividad);
-
-        realizarAuditoría("Editar actividad", actividad.getNombre(), auth);
-        return "redirect:/panel/";
     }
-    
+
     @GetMapping("/borrar-actividad/{idActividad}")
     public String borrarActividad(Actividad actividad, Authentication auth) {
         actividad = actividadService.encontrar(actividad);
@@ -200,27 +261,7 @@ public class ControladorPanel {
         return "redirect:/panel/";
     }
 
-    @GetMapping("/agregar-actividad")
-    public String agregarActividad() {
-        return "layout/panel/acciones/agregar-actividad";
-    }
-
-    @PostMapping("/insertar-actividad")
-    public String insertarActividad(String nombre,
-            @RequestParam("imagen") MultipartFile imagen, double precio,
-            Model model, Authentication auth) throws IOException {
-
-        //Se agrega la actividad a la BD
-        Actividad actividad = new Actividad();
-        actividad.setNombre(nombre);
-        //Se guarda la imagen en el proyecto y retorna el nombre de la ruta a almacenar en la BD
-        actividad.setImagen(guardarImagen(imagen, nombre, "actividades", "imagen"));
-        actividad.setPrecio(precio);
-        actividadService.guardar(actividad);
-
-        realizarAuditoría("Agregar actividad", actividad.getNombre(), auth);
-        return "redirect:/panel/";
-    }
+    
 
     //  ---  CONTACTOS  ---
     @GetMapping("/mostrar-contacto/{idContacto}")
@@ -247,18 +288,21 @@ public class ControladorPanel {
         auditoriaService.guardar(auditoria);
     }
 
+    //Este método guarda una imagen en el proyecto. Ruta: src/main/resources/static/img/lugares o actividades
     private String guardarImagen(MultipartFile imagen, String nombre, String categoria, String tipo) throws IOException {
         int index = imagen.getOriginalFilename().indexOf(".");
         String ruta = "src/main/resources/static/img/" + categoria;
         String extension = "." + imagen.getOriginalFilename().substring(index + 1);
         String nombreFoto = nombre + " - " + tipo + extension;
         Path rutaAbsoluta = Paths.get(ruta + "//" + nombreFoto.replace(" ", ""));
-        if (!imagen.isEmpty()) {
+        if (!imagen.isEmpty() && imagen.getSize() <= 5000000) {
             Files.write(rutaAbsoluta, imagen.getBytes());
+            return "/img/" + categoria + "/" + nombreFoto.replace(" ", "");
+        } else {
+            return "Error: La imagen esta vacía o pesa más de 5MB.";
         }
-        return "/img/" + categoria + "/" + nombreFoto.replace(" ", "");
     }
-    
+
     private void eliminarArchivo(String path) {
         File file = new File("src/main/resources/static" + path);
         file.delete();
