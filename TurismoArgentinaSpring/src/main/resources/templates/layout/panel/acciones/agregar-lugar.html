@@ -13,40 +13,47 @@
     <body id="cuerpo__formulario__lugar" class="cuerpo__formulario">
         <h1>Agregar lugar</h1>
         <div>
-            <form th:action="@{/panel/insertar-lugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
+            <form th:action="@{/panel/insertar-lugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data"
+                  th:object="${lugar}">
                 <div>
-                    <label for="nombre"><i class="fa-solid fa-map-marked-alt"></i> Nombre:</label>
-                    <input type="text" name="nombre" required id="nombre">
+                    <input type="hidden" name="idLugar" th:field="*{idLugar}"/>
                     
+                    <label for="nombre"><i class="fa-solid fa-map-marked-alt"></i> Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" th:field="*{nombre}">
+                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+                    <br th:if="${#fields.hasErrors('nombre')}"/>
+
                     <label for="descripcion"><i class="fa-solid fa-align-justify"></i> Descripción:</label>
                     <br>
                     <textarea name="descripcion" cols="30" rows="10" maxlength="600" placeholder="Máximo 600 caracteres."
-                              required id="descripcion"></textarea>
+                              id="descripcion"></textarea>
+                    <p th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
                     <br>
-                    
-                    <label for="portada"><i class="fa-solid fa-image"></i> Imagen de portada:</label>
-                    <input type="file" name="portada" required accept="image/jpeg" id="portada">
-                    
-                    <label for="foto1"><i class="fa-solid fa-image"></i> Imagen n1:</label>
-                    <input type="file" name="foto1" required accept="image/jpeg" id="foto1">
-                    
-                    <label for="foto2"><i class="fa-solid fa-image"></i> Imagen n2:</label>
-                    <input type="file" name="foto2" required accept="image/jpeg" id="foto2">
-                    
-                    <label for="foto3"><i class="fa-solid fa-image"></i> Imagen n3:</label>
-                    <input type="file" name="foto3" required accept="image/jpeg" id="foto3">
-                    
+
+                    <label for="imagenPortada"><i class="fa-solid fa-image"></i> Imagen de portada:</label>
+                    <input type="file" name="imagenPortada" required accept="image/jpeg" id="portada">
+
+                    <label for="imagenFoto1"><i class="fa-solid fa-image"></i> Imagen n1:</label>
+                    <input type="file" name="imagenFoto1" required accept="image/jpeg" id="foto1">
+
+                    <label for="imagenFoto2"><i class="fa-solid fa-image"></i> Imagen n2:</label>
+                    <input type="file" name="imagenFoto2" required accept="image/jpeg" id="foto2">
+
+                    <label for="imagenFoto3"><i class="fa-solid fa-image"></i> Imagen n3:</label>
+                    <input type="file" name="imagenFoto3" required accept="image/jpeg" id="foto3">
+
                     <label for="precio"><i class="fa-solid fa-dollar-sign"></i> Precio:</label>
-                    <input type="number" name="precio" required id="precio">
-                    
+                    <input type="number" name="precio" id="precio" th:field="*{precio}">
+                    <p th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></p>
+
                     <p class="nota__formulario">Nota: Las imagenes deben tener unas dimensiones de 550x310px.</p>
                     <p>[[${mensajeErrorLugar}]]</p>
-                    
+
                     <input type="submit" value="Agregar lugar">
                 </div>
             </form>
         </div>
-                
+
         <!--SCRIPTS-->
         <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
     </body>

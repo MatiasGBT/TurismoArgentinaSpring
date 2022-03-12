@@ -20,13 +20,14 @@ public class Lugar implements Serializable {
     @NotEmpty(message = "El nombre del lugar no puede estar vacío")
     private String nombre;
     
-    @NotEmpty(message = "La descripción del lugar no puede estar vacío")
+    @NotEmpty(message = "La descripción del lugar no puede estar vacía")
     private String descripcion;
+    
     private String portada;
     private String foto1;
     private String foto2;
     private String foto3;
     
-    @NotNull(message = "El precio del lugar no puede estar vacío")
+    @Min(value = 1, message = "El precio del lugar tiene que ser mayor a 0")
     private double precio;
 }

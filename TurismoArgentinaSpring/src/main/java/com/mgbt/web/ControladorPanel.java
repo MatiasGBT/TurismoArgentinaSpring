@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -74,24 +75,24 @@ public class ControladorPanel {
 
     //  ---  LUGARES  ---
     @GetMapping("/agregar-lugar")
-    public String agregarLugar(@RequestParam(value = "mensajeErrorLugar", required = false) String mensaje, Model model) {
+    public String agregarLugar(@RequestParam(value = "mensajeErrorLugar", required = false) String mensaje, Model model,
+            Lugar lugar) {
         model.addAttribute("mensajeErrorLugar", mensaje);
         return "layout/panel/acciones/agregar-lugar";
     }
 
     @PostMapping("/insertar-lugar")
-    public String insertarLugar(String nombre, String descripcion,
-            @RequestParam("portada") MultipartFile portada, @RequestParam("foto1") MultipartFile foto1,
-            @RequestParam("foto2") MultipartFile foto2, @RequestParam("foto3") MultipartFile foto3,
+    public String insertarLugar(@Valid Lugar lugar, Errors errors,
+            @RequestParam("imagenPortada") MultipartFile portada, @RequestParam("imagenFoto1") MultipartFile foto1,
+            @RequestParam("imagenFoto2") MultipartFile foto2, @RequestParam("imagenFoto3") MultipartFile foto3,
             double precio, RedirectAttributes redirectAttributes, Authentication auth) throws IOException {
 
-        Lugar lugar = new Lugar();
-        lugar.setNombre(nombre);
-        lugar.setDescripcion(descripcion);
-        lugar.setPrecio(precio);
+        if (errors.hasErrors()) {
+            return "layout/panel/acciones/agregar-lugar";
+        }
 
         String mensaje;
-        mensaje = guardarImagen(portada, nombre, "lugares", "portada");
+        mensaje = guardarImagen(portada, lugar.getNombre(), "lugares", "portada");
         if (mensaje.contains("Error")) {
             redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
             return "redirect:/panel/agregar-lugar";
@@ -99,7 +100,7 @@ public class ControladorPanel {
             lugar.setPortada(mensaje);
         }
 
-        mensaje = guardarImagen(foto1, nombre, "lugares", "foto1");
+        mensaje = guardarImagen(foto1, lugar.getNombre(), "lugares", "foto1");
         if (mensaje.contains("Error")) {
             redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
             return "redirect:/panel/agregar-lugar";
@@ -107,7 +108,7 @@ public class ControladorPanel {
             lugar.setFoto1(mensaje);
         }
 
-        mensaje = guardarImagen(foto2, nombre, "lugares", "foto2");
+        mensaje = guardarImagen(foto2, lugar.getNombre(), "lugares", "foto2");
         if (mensaje.contains("Error")) {
             redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
             return "redirect:/panel/agregar-lugar";
@@ -115,7 +116,7 @@ public class ControladorPanel {
             lugar.setFoto2(mensaje);
         }
 
-        mensaje = guardarImagen(foto3, nombre, "lugares", "foto3");
+        mensaje = guardarImagen(foto3, lugar.getNombre(), "lugares", "foto3");
         if (mensaje.contains("Error")) {
             redirectAttributes.addAttribute("mensajeErrorLugar", mensaje);
             return "redirect:/panel/agregar-lugar";
@@ -127,7 +128,7 @@ public class ControladorPanel {
         realizarAuditoría("Agregar lugar", lugar.getNombre(), auth);
         return "redirect:/panel/";
     }
-    
+
     @GetMapping("/editar-lugar/{idLugar}")
     public String editarLugar(Lugar lugar, Model model) {
         lugar = lugarService.encontrar(lugar);
@@ -185,7 +186,7 @@ public class ControladorPanel {
         realizarAuditoría("Eliminar lugar", lugar.getNombre(), auth);
         return "redirect:/panel/";
     }
-    
+
     
     
     //  ---  ACTIVIDADES  ---
@@ -197,22 +198,24 @@ public class ControladorPanel {
     }
 
     @GetMapping("/agregar-actividad")
-    public String agregarActividad(@RequestParam(value = "mensajeErrorActividad", required = false) String mensaje, Model model) {
+    public String agregarActividad(@RequestParam(value = "mensajeErrorActividad", required = false) String mensaje, Model model,
+            Actividad actividad) {
         model.addAttribute("mensajeErrorActividad", mensaje);
         return "layout/panel/acciones/agregar-actividad";
     }
 
     @PostMapping("/insertar-actividad")
-    public String insertarActividad(String nombre,
-            @RequestParam("imagen") MultipartFile imagen, double precio,
+    public String insertarActividad(@Valid Actividad actividad, Errors errors,
+            @RequestParam("fotoImagen") MultipartFile imagen,
             RedirectAttributes redirectAttributes, Authentication auth) throws IOException {
 
-        Actividad actividad = new Actividad();
-        String mensaje = guardarImagen(imagen, nombre, "actividades", "imagen");
+        if (errors.hasErrors()) {
+            return "layout/panel/acciones/agregar-actividad";
+        }
+        
+        String mensaje = guardarImagen(imagen, actividad.getNombre(), "actividades", "imagen");
         if (!mensaje.contains("Error")) {
             actividad.setImagen(mensaje);
-            actividad.setNombre(nombre);
-            actividad.setPrecio(precio);
             actividadService.guardar(actividad);
             realizarAuditoría("Agregar actividad", actividad.getNombre(), auth);
             return "redirect:/panel/";
@@ -221,7 +224,7 @@ public class ControladorPanel {
             return "redirect:/panel/agregar-actividad";
         }
     }
-    
+
     @GetMapping("/editar-actividad/{idActividad}")
     public String editarActividad(Actividad actividad, @RequestParam(value = "mensajeErrorActividad", required = false) String mensaje,
             Model model) {
@@ -262,7 +265,7 @@ public class ControladorPanel {
     }
 
     
-
+    
     //  ---  CONTACTOS  ---
     @GetMapping("/mostrar-contacto/{idContacto}")
     public String mostrarContacto(Contacto contacto, Model model) {

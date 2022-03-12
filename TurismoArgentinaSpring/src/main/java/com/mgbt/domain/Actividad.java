@@ -21,6 +21,6 @@ public class Actividad implements Serializable {
     
     private String imagen;
     
-    @NotNull(message = "El precio de la actividad no puede estar vacío")
+    @Min(value = 1, message = "El precio del lugar tiene que ser mayor a 0")
     private double precio;
 }
