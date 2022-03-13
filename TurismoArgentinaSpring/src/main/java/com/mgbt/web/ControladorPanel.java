@@ -2,13 +2,9 @@ package com.mgbt.web;
 
 import com.mgbt.domain.*;
 import com.mgbt.service.*;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Date;
-import java.util.List;
+import java.io.*;
+import java.nio.file.*;
+import java.util.*;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -49,6 +45,12 @@ public class ControladorPanel {
         compras.removeIf(c -> c.getFecha().getMonth() != date.getMonth());
         model.addAttribute("compras", compras);
         model.addAttribute("totalCompras", compras.size());
+        
+        //REEMBOLSOS (AUDITORÍAS INICIO)
+        List<Auditoria> reembolsos = auditoriaService.encontrarPorTipo(3);
+        compras.removeIf(c -> c.getFecha().getMonth() != date.getMonth());
+        model.addAttribute("reembolsos", reembolsos);
+        model.addAttribute("totalReembolsos", reembolsos.size());
 
         //LUGARES
         List<Lugar> lugares = lugarService.listar();
@@ -68,7 +70,6 @@ public class ControladorPanel {
         List<Auditoria> auditorias = auditoriaService.encontrarPorTipo(1);
         auditorias.removeIf(a -> a.getFecha().getMonth() != date.getMonth());
         model.addAttribute("auditorias", auditorias);
-        model.addAttribute("totalAuditorias", auditorias.size());
 
         return "panel";
     }

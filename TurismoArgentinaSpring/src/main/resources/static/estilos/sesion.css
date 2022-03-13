@@ -261,6 +261,10 @@ td {
     cursor: pointer;
 }
 
+.btn100 {
+    width: 100%;
+}
+
 @media (min-width: 992px) {
     td {
         height: fit-content;

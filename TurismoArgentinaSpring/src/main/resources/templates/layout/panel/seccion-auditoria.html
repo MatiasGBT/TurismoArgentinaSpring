@@ -9,7 +9,7 @@
             <h1>Registro de auditoría</h1>
             <p>Cambios realizados por el Administrador en el último mes.</p>
 
-            <table th:if="${totalAuditorias}!=0">
+            <table th:if="${not #lists.isEmpty(auditorias)}">
                 <thead>
                 <th>#</th>
                 <th>Usuario</th>
@@ -26,7 +26,7 @@
                 </tbody>
             </table>
             
-            <p th:if="${totalAuditorias}==0">El administrador no ha realizado cambios este mes.</p>
+            <p th:if="${#lists.isEmpty(auditorias)}">El administrador no ha realizado cambios este mes.</p>
         </section>
     </body>
 </html>

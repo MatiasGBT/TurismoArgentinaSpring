@@ -32,13 +32,13 @@
                 </div>
             </div>
 
-            <h3>Cantidad de compras realizadas este mes</h3>
+            <h2>Cantidad de compras realizadas este mes</h2>
             <p>Total: [[${totalCompras}]]</p>
             <table th:if="${totalCompras}!=0">
                 <thead>
                 <th>#</th>
                 <th>Usuario</th>
-                <th>Total</th>
+                <th>Detalles</th>
                 <th>Fecha</th>
                 </thead>
                 <tbody>
@@ -47,6 +47,25 @@
                         <td>[[${compra.usuario}]]</td>
                         <td>[[${compra.accion}]]</td>
                         <td>[[${compra.fecha}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2>Cantidad de reembolsos realizados este mes</h2>
+            <p>Total: [[${totalReembolsos}]]</p>
+            <table th:if="${totalReembolsos}!=0">
+                <thead>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Detalles</th>
+                <th>Fecha</th>
+                </thead>
+                <tbody>
+                    <tr th:each="reembolso : ${reembolsos}">
+                        <td>[[${reembolso.idAuditoria}]]</td>
+                        <td>[[${reembolso.usuario}]]</td>
+                        <td>[[${reembolso.accion}]]</td>
+                        <td>[[${reembolso.fecha}]]</td>
                     </tr>
                 </tbody>
             </table>

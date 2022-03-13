@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IAuditoriaDao extends JpaRepository<Auditoria, Integer> {
     List<Auditoria> findByTipo(int i);
+    
+    List<Auditoria> findByTipoAndUsuario(int i, String usuario);
 }

@@ -42,4 +42,8 @@ public class AuditoriaServiceImpl implements IService<Auditoria> {
         return auditoriaDao.findByTipo(tipo);
     }
     
+    @Transactional(readOnly = true)
+    public List<Auditoria> encontrarPorTipoYUsuario(int tipo, String usuario) {
+        return auditoriaDao.findByTipoAndUsuario(tipo, usuario);
+    }
 }

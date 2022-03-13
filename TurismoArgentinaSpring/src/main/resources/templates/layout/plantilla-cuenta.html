@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <header th:fragment="header">
+            <nav>
+                <ul>
+                    <li><a th:href="@{/cuenta/}"><i class="fa-solid fa-user"></i><p>Cuenta</p></a></li>
+                    <li><a th:href="@{/cuenta/compras}"><i class="fa-solid fa-book"></i><p>Compras</p></a></li>
+                </ul>
+                <a th:href="@{/}" id="logo"><img src="/icons/logoBlanco.svg" alt="Ir a la página principal"></a>
+            </nav>
+        </header>
+
+    </body>
+</html>

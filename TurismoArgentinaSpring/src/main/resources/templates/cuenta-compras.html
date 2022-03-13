@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Cuenta | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body id="cuerpo__panel">
+
+        <header th:replace="layout/plantilla-cuenta :: header"></header>
+
+        <main id="contenido__panel">
+            <section class="seccion">
+                <h1>Historial de compras</h1>
+                <p>Todas las compras realizadas en el sitio.</p>
+
+                <table th:if="${not #lists.isEmpty(auditorias)}">
+                    <thead>
+                    <th>#</th>
+                    <th>Detalles</th>
+                    <th>Fecha</th>
+                    <th>Reembolso</th>
+                    </thead>
+                    <tbody>
+                        <tr th:each="auditoria : ${auditorias}">
+                            <td>[[${auditoria.idAuditoria}]]</td>
+                            <td>[[${auditoria.accion}]]</td>
+                            <td>[[${auditoria.fecha}]]</td>
+                            <td th:if="${auditoria.fecha.month}">
+                                <a th:href="@{/cuenta/compras/reembolso/} + ${auditoria.idAuditoria}"
+                                   class="btn btn100 btn__borrar">
+                                    <i class="fas fa-clock-rotate-left"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>[[${mensajeErrorCuentaDetalles}]]</p>
+
+                <p th:if="${#lists.isEmpty(auditorias)}">Todavía no has realizado compras, ¿qué esperas para darte ese gustito?</p>
+            </section>
+        </main>
+
+    </body>
+</html>

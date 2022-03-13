@@ -141,7 +141,7 @@ public class ControladorCarrito {
     public String facturar(Authentication auth) {
         if (auth != null) {
             Auditoria auditoria = new Auditoria();
-            auditoria.setAccion("Compra: " + total);
+            auditoria.setAccion("Compra: " + crearAccion(lugares, actividades, total));
             auditoria.setUsuario(auth.getName());
             auditoria.setFecha(new Date());
             auditoria.setTipo(2);
@@ -154,6 +154,33 @@ public class ControladorCarrito {
             return "redirect:/";
         } else {
             return "/login";
+        }
+    }
+
+    private String crearAccion(List<Lugar> lugares, List<Actividad> actividades, double total) {
+        int sizeL = lugares.size() - 1;
+        int sizeA = actividades.size() - 1;
+        String lugar;
+        String actividad;
+
+        lugar = switch (lugares.size()) {
+            case 0 -> null;
+            case 1 -> lugares.get(0).getNombre();
+            default -> lugares.get(0).getNombre() + " + " + sizeL;
+        };
+        
+        actividad = switch (actividades.size()) {
+            case 0 -> null;
+            case 1 -> actividades.get(0).getNombre();
+            default -> actividades.get(0).getNombre() + " + " + sizeA;
+        };
+
+        if (lugar!=null && actividad!=null) {
+            return lugar + ", " + actividad + ", Total: "  + total;
+        } else if (lugar!=null && actividad==null) {
+            return lugar + ", Total: "  + total;
+        } else {
+            return actividad + ", Total: "  + total;
         }
     }
 }
