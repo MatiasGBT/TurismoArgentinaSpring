@@ -59,4 +59,9 @@ public class UsuarioServiceImpl implements UserDetailsService, IService<Usuario>
     public Usuario encontrar(Usuario usuario) {
         return usuarioDao.findById(usuario.getIdUsuario()).orElse(null);
     }
+    
+    @Transactional(readOnly = true)
+    public Usuario encontrarPorNombre(String usuario) {
+        return usuarioDao.findByUsername(usuario);
+    }
 }

@@ -149,7 +149,7 @@ nav ul li a p {
 
 footer {
     height: 44px; /*Mismo tamaño que el menu de navegación en modo mobile*/
-    margin-top: 75px;
+    margin-top: 15px;
 }
 
 @media (min-width: 992px) {
@@ -169,7 +169,7 @@ footer {
     nav ul li {
         margin-top: 10px;
     }
-    
+
     nav ul li a {
         display: block;
     }
@@ -195,7 +195,7 @@ footer {
         position: absolute;
         top: 80vh;
     }
-    
+
     footer {
         display: none;
     }
@@ -470,4 +470,132 @@ td {
 
 .caja__actividad img {
     width: 80%;
+}
+
+/*  ---  INPUTS CUENTA/DETALLES  ---  */
+.seccion__cuenta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.porcentaje__80 {
+    margin: 0 auto;
+    width: 80%;
+}
+
+@media (min-width: 992px) {
+    .seccion__cuenta {
+        display: block;
+    }
+    .porcentaje__80 {
+        width: 100%;
+    }
+}
+
+.input__inferior {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.advertencia {
+    color: red;
+    font-size: .90rem;
+}
+
+.input__formulario__cuenta {
+    margin: 0 auto;
+    color: #3da9fc;
+    background: white;
+    border: 2px solid #3da9fc;
+    border-radius: 25px;
+    padding: 5px;
+    transition: .3s;
+}
+
+.input__formulario__cuenta:disabled {
+    color: lightblue;
+    border:  2px solid lightblue;
+}
+
+.input__formulario__cuenta:disabled::placeholder {
+    color: lightblue;
+}
+
+.input__formulario__cuenta::placeholder {
+    color: lightblue;
+}
+
+.input__credenciales {
+    margin-top: 15px;
+    color: white;
+    background: #3da9fc;
+    border: 2px solid #3da9fc;
+    border-radius: 25px;
+    padding: 5px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.input__credenciales:hover {
+    background: #094067;
+    border: 2px solid #094067;
+}
+
+.input__credenciales:disabled {
+    background: lightblue;
+    border: 2px solid lightblue;
+    cursor: default;
+}
+
+.input__eliminar {
+    color: white;
+    background: red;
+    border: 2px solid red;
+    border-radius: 25px;
+    padding: 5px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.input__eliminar:hover {
+    background: darkred;
+    border: 2px solid darkred;
+}
+
+.input__eliminar:disabled {
+    background: lightcoral;
+    border: 2px solid lightcoral;
+    cursor: default;
+}
+
+#volver__inicio {
+    display: block;
+    width: 50%;
+    margin: 15px auto;
+    color: #3da9fc;
+    background: white;
+    border: 2px solid #3da9fc;
+    border-radius: 25px;
+    padding: 5px;
+    text-decoration: none;
+    transition: .3s;
+}
+
+#volver__inicio:hover {
+    color: white;
+    background: #3da9fc;
+    transition: .3s;
+}
+
+@media (min-width: 992px) {
+    #volver__inicio {
+        display: none;
+    }
+}
+
+.aclaracion__contraseña {
+    color: grey;
+    font-size: .85rem;
 }

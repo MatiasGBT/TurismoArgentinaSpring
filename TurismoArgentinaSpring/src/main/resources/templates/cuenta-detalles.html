@@ -16,9 +16,69 @@
 
         <main id="contenido__panel">
             <section class="seccion">
-                <p>Not supported yet.</p>
+                <h1>Ajustes generales</h1>
+                <p>Administrar los detalles de la cuenta</p>
             </section>
+
+            <section class="seccion">
+                <h3>Detalles de la cuenta</h3>
+                <p class="porcentaje__80">Para cambiar las credenciales de la cuenta, has click en <b>Sí</b>.</p>
+                <p class="advertencia porcentaje__80">Advertencia: esta acción hará que tengas que loguearte de nuevo en la aplicación.</p>
+                <form th:action="@{/cuenta/cambiar-usuario}" method="POST">
+                    <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}"/>
+
+                    <!--NOMBRE DE USUARIO-->
+                    <p class="input__inferior">Nombre de usuario:</p>
+                    <input type="radio" name="cambiarNombre" value="si" id="nombrePositivo"> Sí
+                    <input type="radio" name="cambiarNombre" value="no" id="nombreNegativo" checked> No
+                    <br/>
+                    <input type="text" name="username" th:value="${usuario.username}" id="usernameInput" disabled
+                           class="input__formulario__cuenta">
+
+                    <!--EMAIL-->
+                    <p class="input__inferior">Email:</p>
+                    <input type="radio" name="cambiarEmail" value="si" id="emailPositivo"> Sí
+                    <input type="radio" name="cambiarEmail" value="no" id="emailNegativo" checked> No
+                    <br/>
+                    <input type="text" name="email" th:value="${usuario.email}" id="emailInput" disabled
+                           class="input__formulario__cuenta">
+
+                    <!--CONTRASEÑA-->
+                    <p class="input__inferior">Contraseña:</p>
+                    <p class="porcentaje__80 aclaracion__contraseña">Deje vacío este campo si no desea cambiar la contraseña de su cuenta.</p>
+                    <input type="radio" name="cambiarPassword" value="si" id="passwordPositivo"> Sí
+                    <input type="radio" name="cambiarPassword" value="no" id="passwordNegativo" checked> No
+                    <br/>
+                    <input type="password" name="password" id="passwordInput" disabled
+                           class="input__formulario__cuenta" placeholder="Nueva contraseña">
+                    <br/>
+
+                    <input type="submit" value="Cambiar credenciales" disabled id="cambiar"
+                           class="input__credenciales">
+                </form>
+            </section>
+
+            <section class="seccion seccion__cuenta">
+                <h3>Eliminar cuenta</h3>
+                <p class="advertencia porcentaje__80">Advertencia: ¿Esta seguro/a que quiere eliminar esta cuenta?
+                    <b>esta acción es irreversible</b>.</p>
+                <form th:action="@{/cuenta/eliminar-usuario}" method="POST">
+                    <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}"/>
+                    
+                    <input type="radio" name="eliminarCuenta" value="si" id="eliminarPositivo"> Sí
+                    <input type="radio" name="eliminarCuenta" value="no" id="eliminarNegativo" checked> No
+                    <br/>
+                    <input type="submit" value="Eliminar cuenta" disabled id="eliminar"
+                           class="input__eliminar">
+                </form>
+            </section>
+            
+            <a th:href="@{/}" id="volver__inicio">Volver al inicio</a>
         </main>
 
+        <footer></footer>
+        
+        <!--SCRIPT-->
+        <script type="text/javascript" src="/script/myscript.js"></script>
     </body>
 </html>
