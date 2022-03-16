@@ -58,6 +58,18 @@
                 </form>
             </section>
 
+            <section class="seccion">
+                <h3>Canjear cupon de descuento</h3>
+                <p class="porcentaje__80">Ingresa un cupon para obtener descuentos en tus compras.</p>
+                <form th:action="@{/cuenta/canjear-cupon}" method="POST">
+                    <input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}"/>
+                    <input type="text" name="nombreCupon" id="nombreCupon" class="input__formulario__cuenta"
+                           placeholder="Ingrese el cupon" required>
+                    <input type="submit" value="Canjear cupon" class="input__credenciales">
+                </form>
+                <p class="advertencia">[[${mensajeErrorCupon}]]</p>
+            </section>
+            
             <section class="seccion seccion__cuenta">
                 <h3>Eliminar cuenta</h3>
                 <p class="advertencia porcentaje__80">Advertencia: ¿Esta seguro/a que quiere eliminar esta cuenta?

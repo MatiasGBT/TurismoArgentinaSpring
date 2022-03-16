@@ -69,6 +69,27 @@
                     </tr>
                 </tbody>
             </table>
+            
+            <h2>Cupones habilitados</h2>
+            <p>Cupones disponibles este mes.</p>
+            <table th:if="${not #lists.isEmpty(cupones)}">
+                <thead>
+                <th>Nombre</th>
+                <th>Descuento</th>
+                <th>Fecha de creación</th>
+                </thead>
+                <tbody>
+                    <tr th:each="cupon : ${cupones}">
+                        <td>[[${cupon.nombre}]]</td>
+                        <td>[[${cupon.descuento}]]%</td>
+                        <td>[[${cupon.fecha}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p th:if="${#lists.isEmpty(cupones)}">No hay cupones habilitados este mes.</p>
+            <a th:href="@{/panel/agregar-cupon}" class="btn__agregar">
+                Agregar cupon
+            </a>
         </section>
     </body>
 </html>

@@ -23,17 +23,33 @@ public class ControladorCarrito {
 
     @Autowired
     private AuditoriaServiceImpl auditoriaService;
+    
+    @Autowired
+    private UsoServiceImpl usoService;
 
     List<Lugar> lugares = new ArrayList<>();
     List<Actividad> actividades = new ArrayList<>();
     double total = 0;
+    Uso uso;
 
     @GetMapping("/")
-    public String verCarrito(Model model) {
+    public String verCarrito(Model model, @RequestParam(value = "uso", required = false) Uso usoCanjeado) {
         String mensaje = "";
+        total = 0;
+        double descuento = 0;
 
-        total = lugares.stream().map(l -> l.getPrecio()).reduce(total, (accumulator, _item) -> accumulator + _item);
-        total = actividades.stream().map(a -> a.getPrecio()).reduce(total, (accumulator, _item) -> accumulator + _item);
+        lugares.forEach(l -> {
+            total += l.getPrecio();
+        });
+        actividades.forEach(a -> {
+            total += a.getPrecio();
+        });
+        if (usoCanjeado != null) {
+            uso = usoCanjeado;
+        }
+        if (uso != null && uso.getCupon().getDescuento() != 0) {
+            descuento = (uso.getCupon().getDescuento() * total) / 100;
+        }
 
         //Algoritmo para verificar si hay alguna actividad agregada al carrito la cual no posea su sitio turístico definido.
         boolean existe = false;
@@ -58,7 +74,7 @@ public class ControladorCarrito {
 
         model.addAttribute("lugaresCarrito", lugares);
         model.addAttribute("actividadesCarrito", actividades);
-        model.addAttribute("total", total);
+        model.addAttribute("total", total - descuento);
         model.addAttribute("mensaje", mensaje);
         return "carrito";
     }
@@ -140,16 +156,24 @@ public class ControladorCarrito {
     @GetMapping("/facturar")
     public String facturar(Authentication auth) {
         if (auth != null) {
+            double descuento = 0;
+            if (uso.getCupon().getDescuento() != 0) {
+                descuento = (uso.getCupon().getDescuento() * total) / 100;
+            }
             Auditoria auditoria = new Auditoria();
-            auditoria.setAccion("Compra: " + crearAccion(lugares, actividades, total));
+            auditoria.setAccion("Compra: " + crearAccion(lugares, actividades, total - descuento));
             auditoria.setUsuario(auth.getName());
             auditoria.setFecha(new Date());
             auditoria.setTipo(2);
             auditoriaService.guardar(auditoria);
 
+            uso.setUsado(true);
+            usoService.guardar(uso);
+            
             lugares.clear();
             actividades.clear();
             total = 0;
+            uso = null;
 
             return "redirect:/";
         } else {
@@ -164,23 +188,29 @@ public class ControladorCarrito {
         String actividad;
 
         lugar = switch (lugares.size()) {
-            case 0 -> null;
-            case 1 -> lugares.get(0).getNombre();
-            default -> lugares.get(0).getNombre() + " + " + sizeL;
-        };
-        
-        actividad = switch (actividades.size()) {
-            case 0 -> null;
-            case 1 -> actividades.get(0).getNombre();
-            default -> actividades.get(0).getNombre() + " + " + sizeA;
+            case 0 ->
+                null;
+            case 1 ->
+                lugares.get(0).getNombre();
+            default ->
+                lugares.get(0).getNombre() + " + " + sizeL;
         };
 
-        if (lugar!=null && actividad!=null) {
-            return lugar + ", " + actividad + ", Total: "  + total;
-        } else if (lugar!=null && actividad==null) {
-            return lugar + ", Total: "  + total;
+        actividad = switch (actividades.size()) {
+            case 0 ->
+                null;
+            case 1 ->
+                actividades.get(0).getNombre();
+            default ->
+                actividades.get(0).getNombre() + " + " + sizeA;
+        };
+
+        if (lugar != null && actividad != null) {
+            return lugar + ", " + actividad + ", Total: " + total;
+        } else if (lugar != null && actividad == null) {
+            return lugar + ", Total: " + total;
         } else {
-            return actividad + ", Total: "  + total;
+            return actividad + ", Total: " + total;
         }
     }
 }

@@ -23,10 +23,18 @@ public class ControladorCuenta {
     @Autowired
     UsuarioServiceImpl usuarioService;
 
+    @Autowired
+    CuponServiceImpl cuponService;
+
+    @Autowired
+    UsoServiceImpl usoService;
+
     @GetMapping("/")
-    public String detalles(Authentication auth, Model model) {
+    public String detalles(Authentication auth, Model model,
+            @RequestParam(value = "mensajeErrorCupon", required = false) String mensaje) {
         Usuario usuario = usuarioService.encontrarPorNombre(auth.getName());
         model.addAttribute("usuario", usuario);
+        model.addAttribute("mensajeErrorCupon", mensaje);
         return "cuenta-detalles";
     }
 
@@ -78,6 +86,43 @@ public class ControladorCuenta {
             return "/login";
         } else {
             return "redirect:/cuenta/";
+        }
+    }
+
+    @PostMapping("/canjear-cupon")
+    public String canjearCupon(Usuario usuario, String nombreCupon, RedirectAttributes redirectAttributes) {
+        usuario = usuarioService.encontrar(usuario);
+
+        Cupon cupon;
+        cupon = cuponService.encontrarPorNombre(nombreCupon);
+        if (cupon == null) {
+            redirectAttributes.addAttribute("mensajeErrorCupon", "Error: cupon no válido.");
+            return "redirect:/cuenta/";
+        }
+
+        Uso uso = usoService.encontrarPorUsuarioYCupon(usuario, cupon);
+        Date date = new Date();
+        if (uso != null && uso.isUsado() == true) {
+            redirectAttributes.addAttribute("mensajeErrorCupon", "Error: este cupon ya fue utilizado.");
+            return "redirect:/cuenta/";
+        } else {
+            if (uso == null) {
+                uso = new Uso();
+            }
+            uso.setCupon(cupon);
+            uso.setUsuario(usuario);
+            if (uso.getCupon().getFecha().getMonth() != date.getMonth()
+                    || uso.getCupon().getFecha().getYear() != date.getYear()) {
+                uso.setUsado(true);
+                usoService.guardar(uso);
+                redirectAttributes.addAttribute("mensajeErrorCupon", "Error: este cupon expiró.");
+                return "redirect:/cuenta/";
+            } else {
+                uso.setUsado(false);
+                usoService.guardar(uso);
+                redirectAttributes.addAttribute("uso", uso);
+                return "redirect:/carrito/";
+            }
         }
     }
 

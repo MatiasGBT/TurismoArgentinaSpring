@@ -33,6 +33,9 @@ public class ControladorPanel {
 
     @Autowired
     ContactoServiceImpl contactoService;
+    
+    @Autowired
+    CuponServiceImpl cuponService;
 
     @GetMapping("/")
     public String inicio(Model model) {
@@ -52,6 +55,12 @@ public class ControladorPanel {
         model.addAttribute("reembolsos", reembolsos);
         model.addAttribute("totalReembolsos", reembolsos.size());
 
+        //CUPONES
+        List<Cupon> cupones = cuponService.listar();
+        cupones.removeIf(c -> c.getFecha().getMonth() != date.getMonth());
+        cupones.removeIf(c -> c.getFecha().getYear() != date.getYear());
+        model.addAttribute("cupones", cupones);
+        
         //LUGARES
         List<Lugar> lugares = lugarService.listar();
         model.addAttribute("lugares", lugares);
@@ -74,6 +83,22 @@ public class ControladorPanel {
         return "panel";
     }
 
+    //  ---  CUPONES  ---
+    @GetMapping("/agregar-cupon")
+    public String agregarCupon(Cupon cupon) {
+        return "layout/panel/acciones/agregar-cupon";
+    }
+    
+    @PostMapping("/insertar-cupon")
+    public String insertarCupon(@Valid Cupon cupon, Errors errors) {
+        if (errors.hasErrors()) {
+            return "layout/panel/acciones/agregar-cupon";
+        }
+        cupon.setFecha(new Date());
+        cuponService.guardar(cupon);
+        return "redirect:/panel/";
+    }
+    
     //  ---  LUGARES  ---
     @GetMapping("/agregar-lugar")
     public String agregarLugar(@RequestParam(value = "mensajeErrorLugar", required = false) String mensaje, Model model,

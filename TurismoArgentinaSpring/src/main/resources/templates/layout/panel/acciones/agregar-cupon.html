@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Agregar cupon | Turismo Argentina</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
+        <link rel="stylesheet" type="text/css" href="/estilos/sesion.css">
+        <link rel="icon" type="/image/ico" href="/icons/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+    </head>
+    <body id="cuerpo__formulario__lugar" class="cuerpo__formulario">
+        <h1>Agregar cupon</h1>
+        <div>
+            <form th:action="@{/panel/insertar-cupon}" method="POST" id="formulario__sesion" enctype="multipart/form-data"
+                  th:object="${cupon}">
+                <div>
+                    <input type="hidden" name="idCupon" th:field="*{idCupon}"/>
+                    
+                    <label for="nombre"><i class="fa-solid fa-ticket"></i> Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" th:field="*{nombre}">
+                    <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+                    <br th:if="${#fields.hasErrors('nombre')}"/>
+
+                    <label for="descuento"><i class="fa-solid fa-dollar-sign"></i> Descuento:</label>
+                    <input type="number" name="descuento" id="descuento" th:field="*{descuento}">
+                    <p th:if="${#fields.hasErrors('descuento')}" th:errors="*{descuento}"></p>
+
+                    <input type="submit" value="Agregar cupon">
+                </div>
+            </form>
+        </div>
+
+        <!--SCRIPTS-->
+        <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
+    </body>
+</html>
