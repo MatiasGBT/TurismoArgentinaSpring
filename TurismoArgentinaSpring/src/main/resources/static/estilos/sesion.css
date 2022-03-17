@@ -349,6 +349,7 @@ td {
     align-items: center;
     text-align: center;
     flex-direction: column;
+    margin: 0 auto;
 }
 
 .cuerpo__formulario h1 {

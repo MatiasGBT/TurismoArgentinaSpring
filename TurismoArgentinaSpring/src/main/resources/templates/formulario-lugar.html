@@ -12,14 +12,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
     </head>
     <body>
-    <body id="cuerpo__formulario__actividad" class="cuerpo__formulario">
-        <main>
+        <main id="cuerpo__formulario__actividad" class="cuerpo__formulario">
             <h1>Comprar pasaje</h1>
             <div class="caja__comprar">
                 <form th:action="@{/carrito/agregar-lugar/} + ${lugar.idLugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
                     <div>
 
-                        <label for="cantidad"><i class="fas fa-users"></i> ¿Cuantas personas irán?</label>
+                        <label for="cantidad"><i class="fa-solid fa-users"></i> ¿Cuantas personas irán?</label>
                         <input type="number" name="cantidad" required min="1" max="5">
 
                         <p>Nota: solo se puede comprar hasta un máximo de 5 pasajes.</p>

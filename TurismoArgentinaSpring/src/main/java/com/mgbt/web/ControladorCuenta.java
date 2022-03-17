@@ -131,6 +131,7 @@ public class ControladorCuenta {
         Usuario usuario = new Usuario();
         usuario.setIdUsuario(idUsuario);
         usuario = usuarioService.encontrar(usuario);
+        usoService.eliminarPorUsuario(usuario);
         usuarioService.eliminar(usuario);
         return "/login";
     }

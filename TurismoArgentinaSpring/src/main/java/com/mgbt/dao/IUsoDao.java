@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IUsoDao extends JpaRepository<Uso, Integer> {
     Uso findByUsuarioAndCupon(Usuario usuario, Cupon cupon);
+    
+    void deleteByUsuario(Usuario usuario);
 }

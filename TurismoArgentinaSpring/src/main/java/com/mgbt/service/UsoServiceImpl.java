@@ -41,4 +41,9 @@ public class UsoServiceImpl implements IService<Uso> {
     public Uso encontrarPorUsuarioYCupon(Usuario usuario, Cupon cupon) {
         return usoDao.findByUsuarioAndCupon(usuario, cupon);
     }
+    
+    @Transactional
+    public void eliminarPorUsuario(Usuario usuario) {
+        usoDao.deleteByUsuario(usuario);
+    }
 }

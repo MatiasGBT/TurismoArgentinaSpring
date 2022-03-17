@@ -23,7 +23,7 @@ public class ControladorCarrito {
 
     @Autowired
     private AuditoriaServiceImpl auditoriaService;
-    
+
     @Autowired
     private UsoServiceImpl usoService;
 
@@ -157,7 +157,7 @@ public class ControladorCarrito {
     public String facturar(Authentication auth) {
         if (auth != null) {
             double descuento = 0;
-            if (uso.getCupon().getDescuento() != 0) {
+            if (uso != null && uso.getCupon().getDescuento() != 0) {
                 descuento = (uso.getCupon().getDescuento() * total) / 100;
             }
             Auditoria auditoria = new Auditoria();
@@ -167,9 +167,11 @@ public class ControladorCarrito {
             auditoria.setTipo(2);
             auditoriaService.guardar(auditoria);
 
-            uso.setUsado(true);
-            usoService.guardar(uso);
-            
+            if (uso != null) {
+                uso.setUsado(true);
+                usoService.guardar(uso);
+            }
+
             lugares.clear();
             actividades.clear();
             total = 0;
