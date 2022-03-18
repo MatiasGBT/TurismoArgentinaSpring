@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Comprar pasaje | Turismo Argentina</title>
         <meta charset="UTF-8"/>
@@ -19,7 +18,7 @@
                     <div>
 
                         <label for="cantidad"><i class="fa-solid fa-users"></i> ¿Cuantas personas irán?</label>
-                        <input type="number" name="cantidad" required min="1" max="5">
+                        <input type="number" name="cantidad" id="cantidad" required min="1" max="5">
 
                         <p>Nota: solo se puede comprar hasta un máximo de 5 pasajes.</p>
 

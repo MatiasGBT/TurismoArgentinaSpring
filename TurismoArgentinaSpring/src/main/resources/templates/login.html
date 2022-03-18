@@ -17,8 +17,8 @@
                 <form th:action="@{/login}" method="POST" id="formulario__sesion">
                     <div>
                         <label for="username"><i class="fas fa-user"></i> Nombre de usuario:*</label>
-                        <input type="text" name="username" required>
-                        <label for="password"><i class="fas fa-key"></i> Contraseña:*</label>
+                        <input type="text" name="username" id="username" required>
+                        <label for="password" id="password"><i class="fas fa-key"></i> Contraseña:*</label>
                         <input type="password" name="password" required>
                         <input type="submit" value="Iniciar sesión">
                         <p>¿No tenés una cuenta?</p><a th:href="@{/registrarse}" id="link__registrarse">Registrarse</a>

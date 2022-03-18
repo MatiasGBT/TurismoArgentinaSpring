@@ -24,7 +24,7 @@
                     <br th:if="${#fields.hasErrors('nombre')}"/>
                     
                     <label for="fotoImagen"><i class="fa-solid fa-image"></i> Imagen: </label>
-                    <input type="file" name="fotoImagen" required accept="image/jpeg" id="imagen">
+                    <input type="file" name="fotoImagen" required accept="image/jpeg" id="fotoImagen">
                     
                     <label for="precio"><i class="fa-solid fa-dollar-sign"></i> Precio:</label>
                     <input type="number" name="precio" id="precio" th:field="*{precio}">

@@ -118,7 +118,7 @@ svg {
         align-items: center;
         padding: 20px 0; /*Al detectar una lista, el navegador incluye un padding por defecto a la izquierda, con el 0 se lo quito*/
         /*Si la pantalla es muy pequeña y hay muchos links en el menú, algunos pueden cortarse y no se veran*/
-        height: calc(100%-60px);
+        height: calc(100% - 60px);
         overflow-y: auto;
 
         left: 100%; /*Mando el menú a la derecha cuando no es visible*/

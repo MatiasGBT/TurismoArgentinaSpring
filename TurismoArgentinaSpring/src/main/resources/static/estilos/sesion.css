@@ -305,7 +305,7 @@ td {
     text-align: center;
     margin-top: 10px;
     transition: .3s;
-    /*Para que se ponga a la izquierda.*/
+    /*Para que se ponga a la derecha.*/
     position: absolute;
     right: 0;
 }
@@ -453,6 +453,9 @@ td {
 
 /*  ---  SECCION ACTIVIDADES  ---  */
 @media (max-width: 992px) {
+    #sitios {
+        margin-top: 65px;
+    }
     #actividades {
         margin-top: 65px;
     }

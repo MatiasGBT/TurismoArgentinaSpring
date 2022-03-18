@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Turismo Argentina</title>
     </head>
@@ -10,10 +9,10 @@
             <form th:action="@{/contactar}" method="POST" id="formulario__contacto">
                 <div>
                     <label for="nombre">Nombre:*</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" id="nombre" required>
                     <br>
                     <label for="email">Email:*</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" id="email" required>
                 </div>
                 <div>
                     <br>
