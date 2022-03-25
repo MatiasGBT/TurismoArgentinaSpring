@@ -54,46 +54,19 @@ window.addEventListener('load', function () {
 var usernameInput = document.getElementById("usernameInput");
 var nombreSi = document.getElementById("nombrePositivo");
 var nombreNo = document.getElementById("nombreNegativo");
-if (nombreSi) {
-    nombreSi.addEventListener('click', function (e) {
-        usernameInput.disabled = false;
-    });
-}
-if (nombreNo) {
-    nombreNo.addEventListener('click', function (e) {
-        usernameInput.disabled = true;
-    });
-}
+activarDesactivar(usernameInput, nombreSi, nombreNo);
 
 //Email
 var emailInput = document.getElementById("emailInput");
 var emailSi = document.getElementById("emailPositivo");
 var emailNo = document.getElementById("emailNegativo");
-if (emailSi) {
-    emailSi.addEventListener('click', function (e) {
-        emailInput.disabled = false;
-    });
-}
-if (emailNo) {
-    emailNo.addEventListener('click', function (e) {
-        emailInput.disabled = true;
-    });
-}
+activarDesactivar(emailInput, emailSi, emailNo);
 
 //Password
 var passwordInput = document.getElementById("passwordInput");
 var passwordSi = document.getElementById("passwordPositivo");
 var passwordNo = document.getElementById("passwordNegativo");
-if (passwordSi) {
-    passwordSi.addEventListener('click', function (e) {
-        passwordInput.disabled = false;
-    });
-}
-if (passwordNo) {
-    passwordNo.addEventListener('click', function (e) {
-        passwordInput.disabled = true;
-    });
-}
+activarDesactivar(passwordInput, passwordSi, passwordNo);
 
 //Boton para cambiar credenciales
 var cambiar = document.getElementById("cambiar");
@@ -117,13 +90,17 @@ if (passwordInput) {
 var eliminar = document.getElementById("eliminar");
 var eliminarSi = document.getElementById("eliminarPositivo");
 var eliminarNo = document.getElementById("eliminarNegativo");
-if (eliminarSi) {
-    eliminarSi.addEventListener('click', function (e) {
-        eliminar.disabled = false;
-    });
-}
-if (eliminarNo) {
-    eliminarNo.addEventListener('click', function (e) {
-        eliminar.disabled = true;
-    });
+activarDesactivar(eliminar, eliminarSi, eliminarNo);
+
+function activarDesactivar(input, si, no) {
+    if (si) {
+        si.addEventListener('click', function (e) {
+            input.disabled = false;
+        });
+    }
+    if (no) {
+        no.addEventListener('click', function (e) {
+            input.disabled = true;
+        });
+    }
 }
